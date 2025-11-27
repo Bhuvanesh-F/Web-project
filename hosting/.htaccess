@@ -1,0 +1,19 @@
+# .htaccess
+# Prevent directory listing
+Options -Indexes
+
+# Security Headers
+Header always set X-Frame-Options "DENY"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "no-referrer"
+Header always set Permissions-Policy "geolocation=()"
+
+# Disable TRACE
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+RewriteRule .* - [F]
+
+# Protect config files
+<FilesMatch "\.(env|ini|phar|sh|sql)$">
+Require all denied
+</FilesMatch>
