@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Records - VitalCare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #c8e6c9;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            background-color: #1b5e20;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #0d3c13;
+        }
+        
+        .welcome-text {
+            font-weight: 500;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 2rem 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar h2 {
+            padding: 0 1.5rem 1rem;
+            color: #2e7d32;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            padding: 0.8rem 1.5rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #f1f8e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .sidebar ul li.active {
+            background-color: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            font-weight: 500;
+        }
+        
+        .sidebar ul li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .page-title {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h3 {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-bar input:focus {
+            border-color: #2e7d32;
+            outline: none;
+        }
+        
+        /* Records List */
+        .records-list {
+            list-style: none;
+        }
+        
+        .record-item {
+            padding: 1.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            transition: box-shadow 0.3s;
+        }
+        
+        .record-item:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .record-date {
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .record-doctor {
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .record-details {
+            margin-top: 1rem;
+        }
+        
+        .record-field {
+            margin-bottom: 0.5rem;
+        }
+        
+        .field-label {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">VitalCare</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pet.html">Pet</a></li>
+                <li><a href="book-appointment.html">Book Appointment</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Information</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button class="logout-btn">Log Out</button>
+            <span class="welcome-text">Welcome, Name</span>
+        </div>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="appointments.html">Appointments</a></li>
+                <li class="active"><a href="medical-records.html">Medical Records</a></li>
+                <li><a href="reviews.html">Review</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <h1 class="page-title">Medical Records</h1>
+            
+            <div class="card">
+                <h3>Search Records</h3>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search records by diagnosis or date...">
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Medical History</h3>
+                
+                <ul class="records-list">
+                    <li class="record-item">
+                        <div class="record-date">Jan 2, 2025</div>
+                        <div class="record-doctor">Dr. Name</div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="record-details">
+                            <div class="record-field">
+                                <span class="field-label">Diagnosis:</span> Headache
+                            </div>
+                            <div class="record-field">
+                                <span class="field-label">Treatment:</span> Prescribed medication and more sleep
+                            </div>
+                            <div class="record-field">
+                                <span class="field-label">Prescription:</span> 1000mg Panadol
+                            </div>
+                            <div class="record-field">
+                                <span class="field-label">Notes:</span> Follow up in 1 week
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="record-item">
+                        <div class="record-date">April 13, 2025</div>
+                        <div class="record-doctor">Dr. Name</div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="record-details">
+                            <div class="record-field">
+                                <span class="field-label">Diagnosis:</span> Headache
+                            </div>
+                            <div class="record-field">
+                                <span class="field-label">Treatment:</span> Checkup completed
+                            </div>
+                            <div class="record-field">
+                                <span class="field-label">Prescription:</span> Multivitamin supplement
+                            </div>
+                            <div class="record-field">
+                                <span class="field-label">Notes:</span> All vitals normal
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Add search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const recordItems = document.querySelectorAll('.record-item');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            recordItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

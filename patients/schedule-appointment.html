@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - VitalCare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #c8e6c9;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            background-color: #1b5e20;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #0d3c13;
+        }
+        
+        .welcome-text {
+            font-weight: 500;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 2rem 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar h2 {
+            padding: 0 1.5rem 1rem;
+            color: #2e7d32;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            padding: 0.8rem 1.5rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #f1f8e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .sidebar ul li.active {
+            background-color: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            font-weight: 500;
+        }
+        
+        .sidebar ul li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .page-title {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+        
+        .card h3 {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #2e7d32;
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1b5e20;
+        }
+        
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">VitalCare</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pet.html">Pet</a></li>
+                <li><a href="book-appointment.html" class="active">Book Appointment</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Information</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button class="logout-btn">Log Out</button>
+            <span class="welcome-text">Welcome, Name</span>
+        </div>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li class="active"><a href="appointments.html">Appointments</a></li>
+                <li><a href="medical-records.html">Medical Records</a></li>
+                <li><a href="reviews.html">Review</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <h1 class="page-title">Schedule Appointment</h1>
+            
+            <div class="card">
+                <h3>Schedule Appointment</h3>
+                
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="speciality">Doctor Speciality</label>
+                        <select id="speciality" class="form-control" required>
+                            <option value="">Select speciality</option>
+                            <option value="general">General Physician</option>
+                            <option value="dermatology">Dermatology</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="pediatrics">Pediatrics</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doctor">Doctor Name</label>
+                        <select id="doctor" class="form-control" required>
+                            <option value="">Select doctor name</option>
+                            <option value="dr-smith">Dr. Smith</option>
+                            <option value="dr-jones">Dr. Jones</option>
+                            <option value="dr-wilson">Dr. Wilson</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="time">Time Slot</label>
+                            <select id="time" class="form-control" required>
+                                <option value="">Select time</option>
+                                <option value="08:00">8:00 AM</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" class="form-control" placeholder="Any additional notes for the doctor"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Schedule Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('appointment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Appointment scheduled successfully!');
+            // In a real application, you would submit the form data to a server
+        });
+        
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            if(confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = 'appointments.html';
+            }
+        });
+    </script>
+</body>
+</html>

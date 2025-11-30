@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - VitalCare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #c8e6c9;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            background-color: #1b5e20;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #0d3c13;
+        }
+        
+        .welcome-text {
+            font-weight: 500;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 2rem 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar h2 {
+            padding: 0 1.5rem 1rem;
+            color: #2e7d32;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            padding: 0.8rem 1.5rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #f1f8e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .sidebar ul li.active {
+            background-color: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            font-weight: 500;
+        }
+        
+        .sidebar ul li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .page-title {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h3 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1b5e20;
+        }
+        
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* List Styles */
+        .item-list {
+            list-style: none;
+        }
+        
+        .item-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .item-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        
+        .item-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 1rem 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">VitalCare</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pet.html">Pet</a></li>
+                <li><a href="book-appointment.html">Book Appointment</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Information</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button class="logout-btn">Log Out</button>
+            <span class="welcome-text">Welcome, Name</span>
+        </div>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li class="active"><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="appointments.html">Appointments</a></li>
+                <li><a href="medical-records.html">Medical Records</a></li>
+                <li><a href="reviews.html">Review</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <h1 class="page-title">Dashboard</h1>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Recent Appointments</h3>
+                    <ul class="item-list">
+                        <li>
+                            <div class="item-title">General Checkup</div>
+                            <div class="item-details">Dr. Name - Aug 30, 2025</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Unpaid Bills</h3>
+                    <ul class="item-list">
+                        <li>
+                            <div class="item-title">Consultation Fee - Dr. Name</div>
+                            <div class="item-details">Rs 1,500</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Recent Payments</h3>
+                    <ul class="item-list">
+                        <li>
+                            <div class="item-title">Consultation Fee - Dr. Name</div>
+                            <div class="item-details">Rs 1,200</div>
+                        </li>
+                        <li>
+                            <div class="item-title">Blood Test</div>
+                            <div class="item-details">Rs 800</div>
+                        </li>
+                        <li>
+                            <div class="item-title">ECG</div>
+                            <div class="item-details">Rs 1,500</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="btn btn-primary">Book an Appointment</button>
+                    <button class="btn btn-secondary">Pay now</button>
+                    <button class="btn btn-secondary">Payment History</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Add navigation functionality
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            window.location.href = 'book-appointment.html';
+        });
+    </script>
+</body>
+</html>
