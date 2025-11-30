@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare Clinic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c5530;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        nav a.active {
+            color: #2c5530;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: #f8f9fa;
+            padding: 120px 0 60px;
+            margin-top: 60px;
+        }
+        
+        .hero h2 {
+            font-size: 32px;
+            color: #2c5530;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .hero p {
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #2c5530;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #2c5530;
+            border: 2px solid #2c5530;
+        }
+        
+        /* Services Overview */
+        .services-overview {
+            padding: 60px 0;
+            background: #fff;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .service-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 3px solid #2c5530;
+        }
+        
+        .service-card h3 {
+            color: #2c5530;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .service-card p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .btn-login {
+            color: #2c5530;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .service-card.emergency {
+            border-top-color: #d9534f;
+        }
+        
+        .btn-emergency {
+            background: #d9534f;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+        
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c5530;
+            font-size: 24px;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .client-name {
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-brand h3 {
+            color: #4a7c59;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .footer-brand p {
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        .footer-links h4, .footer-contact h4 {
+            color: #4a7c59;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-contact p {
+            color: #bdc3c7;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">VitalCare</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="pet.html">Pet</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact Information</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Welcome to VitalCare</h2>
+            <p class="tagline">Your Health. Their Health. One Clinic.</p>
+            <p>We are a modern clinic offering comprehensive healthcare services to both humans and animals.</p>
+            <div class="hero-buttons">
+                <a href="book-appointment.html" class="btn btn-primary">Request an appointment</a>
+                <a href="services.html" class="btn btn-secondary">Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-overview">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Human Healthcare</h3>
+                    <p>Complete medical services for all ages with experienced physicians and modern equipment.</p>
+                    <a href="login.html" class="btn-login">Login</a>
+                </div>
+                <div class="service-card">
+                    <h3>Veterinary Care</h3>
+                    <p>Professional animal healthcare from routine checkups to emergency treatments.</p>
+                    <a href="login.html" class="btn-login">Login</a>
+                </div>
+                <div class="service-card emergency">
+                    <h3>24/7 Emergency</h3>
+                    <p>Round-the-clock emergency services for both human and animal patients.</p>
+                    <a href="tel:118" class="btn-emergency">Call an ambulance - 118</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"The human clinic provided excellent care for my family. The doctors are knowledgeable and the staff is very helpful."</p>
+                    <div class="client-name">N****a</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The pet clinic saved my dog's life."</p>
+                    <div class="client-name">S*****sh</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The online booking system is so convenient. I can schedule appointments for my family and our pets in one place."</p>
+                    <div class="client-name">J****e</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>VitalCare Clinic</h3>
+                    <p>Your Health. Their Health. One Clinic.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>QUICK LINK</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>GET IN TOUCH</h4>
+                    <p>(+230) 432 1987</p>
+                    <p>info@vitalcare.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VitalCare Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
