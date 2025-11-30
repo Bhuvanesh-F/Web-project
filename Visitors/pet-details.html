@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Details - VitalCare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c5530;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        nav a.active {
+            color: #2c5530;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 120px 0 80px;
+            min-height: 80vh;
+            background: #f8f9fa;
+        }
+        
+        .form-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-card h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c5530;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn-full {
+            width: 100%;
+            padding: 15px;
+            background: #2c5530;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-brand h3 {
+            color: #4a7c59;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .footer-brand p {
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        .footer-links h4, .footer-contact h4 {
+            color: #4a7c59;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-contact p {
+            color: #bdc3c7;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">VitalCare</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="pet.html">Pet</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact Information</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="form-section">
+        <div class="container">
+            <div class="form-card">
+                <h2>Pet Details</h2>
+                <form class="pet-form">
+                    <div class="form-group">
+                        <label for="pet-age">Age / Date Of Birth</label>
+                        <input type="text" id="pet-age" placeholder="Enter age or date of birth">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vaccination-status">Vaccination Status</label>
+                        <select id="vaccination-status">
+                            <option value="">Select vaccination status</option>
+                            <option value="up-to-date">Up to date</option>
+                            <option value="not-up-to-date">Not up to date</option>
+                            <option value="unknown">Unknown</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-full">Continue</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>VitalCare Clinic</h3>
+                    <p>Your Health. Their Health. One Clinic.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>QUICK LINK</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>GET IN TOUCH</h4>
+                    <p>(+230) 432 1987</p>
+                    <p>info@vitalcare.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VitalCare Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
