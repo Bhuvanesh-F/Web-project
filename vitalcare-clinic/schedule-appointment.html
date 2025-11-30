@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Schedule Appointment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="patient-dashboard.html">Dashboard</a></li>
+                    <li><a href="schedule-appointment.html" class="active">Appointments</a></li>
+                    <li><a href="patient-medical-records.html">Medical Records</a></li>
+                    <li><a href="patient-reviews.html">Review</a></li>
+                    <li><a href="patient-profile.html">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Name</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="appointment-form-container">
+                <h2>Schedule Appointment</h2>
+                
+                <form class="appointment-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="doctor-speciality">Doctor Speciality</label>
+                            <select id="doctor-speciality" required>
+                                <option value="">Select speciality</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="dermatology">Dermatology</option>
+                                <option value="general">General Medicine</option>
+                                <option value="pediatrics">Pediatrics</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctor-name">Doctor Name</label>
+                            <select id="doctor-name" required>
+                                <option value="">Select doctor name</option>
+                                <option value="dr-smith">Dr. Smith</option>
+                                <option value="dr-jones">Dr. Jones</option>
+                                <option value="dr-williams">Dr. Williams</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointment-date">Date</label>
+                            <input type="date" id="appointment-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time-slot">Time Slot</label>
+                            <select id="time-slot" required>
+                                <option value="">Select time slot</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-notes">Notes</label>
+                        <textarea id="appointment-notes" rows="4" placeholder="Any additional notes or symptoms"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <a href="my-appointments.html" class="btn btn-secondary">Cancel</a>
+                        <button type="button" class="btn" onclick="scheduleAppointment()">Schedule Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function scheduleAppointment() {
+            const doctor = document.getElementById('doctor-name').value;
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('time-slot').value;
+            
+            if (!doctor || !date || !time) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            alert('Appointment scheduled successfully!');
+            window.location.href = 'my-appointments.html';
+        }
+    </script>
+
+    <style>
+        .appointment-form-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .appointment-form {
+            margin-top: 20px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .form-actions .btn {
+            width: auto;
+            min-width: 120px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>

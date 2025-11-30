@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Login</title>
+    <style>
+        /* Shared styles would be in a separate CSS file */
+        :root {
+            --primary: #2c7fb8;
+            --secondary: #7fcdbb;
+            --dark: #253237;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .login-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .login-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Page 1: Login -->
+        <div class="form-step active" id="step-login">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>VitalCare</h1>
+                    <p>Please log to your account</p>
+                </div>
+                <div class="form-group">
+                    <label for="patient-id">PatientID or Email</label>
+                    <input type="text" id="patient-id" placeholder="Enter your Patient ID or Email Address">
+                </div>
+                <div class="form-group">
+                    <label for="patient-password">Password</label>
+                    <input type="password" id="patient-password" placeholder="Enter your password">
+                </div>
+                <a href="patient-dashboard.html" class="btn">Log in</a>
+                <div class="login-links">
+                    <a href="#">Forgot password?</a>
+                    <a href="#" onclick="showStep('step-owner-info')">Register</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Owner Information -->
+        <div class="form-step" id="step-owner-info">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>VitalCare</h1>
+                    <h2>Owner Information</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required style="width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date Of Birth</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-number">Contact Number</label>
+                        <input type="tel" id="contact-number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Home Address</label>
+                        <textarea id="address" rows="3" required style="width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                    </div>
+                    <div class="form-navigation">
+                        <button type="button" class="btn" onclick="showStep('step-login')" style="width: auto; background: #6c757d;">Back</button>
+                        <button type="button" class="btn" onclick="showStep('step-pet-info')">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Page 3: Pet Information -->
+        <div class="form-step" id="step-pet-info">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>VitalCare</h1>
+                    <h2>Pet Information</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="pet-name">Pet Name</label>
+                        <input type="text" id="pet-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="species">Species</label>
+                        <input type="text" id="species" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="breed">Breed</label>
+                        <input type="text" id="breed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-dob">Age / Date Of Birth</label>
+                        <input type="text" id="pet-dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-gender">Gender</label>
+                        <select id="pet-gender" required style="width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="vaccination-status">Vaccination Status</label>
+                        <input type="text" id="vaccination-status" required>
+                    </div>
+                    <div class="form-navigation">
+                        <button type="button" class="btn" onclick="showStep('step-owner-info')" style="width: auto; background: #6c757d;">Back</button>
+                        <button type="button" class="btn" onclick="showStep('step-account-setup')">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Page 4: Account Setup -->
+        <div class="form-step" id="step-account-setup">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>VitalCare</h1>
+                    <h2>Create Account</h2>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="username">Enter a Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="terms" required>
+                            I agree to the clinic's terms & conditions
+                        </label>
+                    </div>
+                    <div class="form-navigation">
+                        <button type="button" class="btn" onclick="showStep('step-pet-info')" style="width: auto; background: #6c757d;">Back</button>
+                        <button type="button" class="btn" onclick="completeRegistration()">Complete Registration</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showStep(stepId) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show the selected step
+            document.getElementById(stepId).classList.add('active');
+        }
+        
+        function completeRegistration() {
+            alert('Registration completed successfully!');
+            showStep('step-login');
+        }
+    </script>
+</body>
+</html>

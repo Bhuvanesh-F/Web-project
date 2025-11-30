@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Account Setup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="book-appointment.html">Book Appointment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Registration Step 3 of 3</span>
+                    <a href="pet-info.html" class="btn">Back</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            <h2>Create Your Account</h2>
+            
+            <form class="account-form">
+                <div class="form-group">
+                    <label for="account-username">Enter a Username</label>
+                    <input type="text" id="account-username" required>
+                    <small>This will be your login username</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="account-password">Password</label>
+                    <input type="password" id="account-password" required>
+                    <small>Must be at least 8 characters with numbers and letters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="account-confirm-password">Confirm Password</label>
+                    <input type="password" id="account-confirm-password" required>
+                </div>
+                
+                <div class="form-group terms-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms-agreement" required>
+                        <span class="checkmark"></span>
+                        I agree to the clinic's terms & conditions
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="pet-info.html" class="btn btn-secondary">Back</a>
+                    <a href="login-alt.html" class="btn" onclick="completeAccountSetup()">Complete Registration</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VitalCare Clinic</h3>
+                    <p>Your Health. Their Health. One Clinic.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>QUICK LINK</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>GET IN TOUCH</h3>
+                    <p>(+230) 432 1987</p>
+                    <p>info@vitalcare.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VitalCare Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function completeAccountSetup() {
+            const password = document.getElementById('account-password').value;
+            const confirmPassword = document.getElementById('account-confirm-password').value;
+            const termsAgreed = document.getElementById('terms-agreement').checked;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please check and try again.');
+                return false;
+            }
+            
+            if (!termsAgreed) {
+                alert('Please agree to the terms and conditions to continue.');
+                return false;
+            }
+            
+            alert('Account created successfully! You can now log in with your credentials.');
+            return true;
+        }
+    </script>
+
+    <style>
+        .account-form {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+        
+        .form-group small {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .terms-group {
+            margin: 30px 0;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
+        }
+        
+        .checkbox-label input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .form-actions .btn {
+            width: auto;
+            min-width: 120px;
+        }
+    </style>
+</body>
+</html>

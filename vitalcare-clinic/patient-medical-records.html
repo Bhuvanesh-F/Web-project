@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Medical Records</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="patient-dashboard.html">Dashboard</a></li>
+                    <li><a href="my-appointments.html">Appointments</a></li>
+                    <li><a href="patient-medical-records.html" class="active">Medical Records</a></li>
+                    <li><a href="patient-reviews.html">Review</a></li>
+                    <li><a href="patient-profile.html">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Name</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="records-header">
+                <h2>Medical Records</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="Search records by diagnosis or data...">
+                </div>
+            </div>
+
+            <div class="medical-records">
+                <div class="record-item">
+                    <div class="record-date">Jan 2, 2025</div>
+                    <div class="record-details">
+                        <p><strong>Dr. Name</strong></p>
+                        <div class="record-info">
+                            <p><strong>Diagnosis:</strong> Headache</p>
+                            <p><strong>Treatment:</strong> Prescribed medication and more sleep</p>
+                            <p><strong>Prescription:</strong> 1000mg Panadol</p>
+                            <p><strong>Notes:</strong> Follow up in 1 week</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-item">
+                    <div class="record-date">April 13, 2025</div>
+                    <div class="record-details">
+                        <p><strong>Dr. Name</strong></p>
+                        <div class="record-info">
+                            <p><strong>Diagnosis:</strong> Headache</p>
+                            <p><strong>Treatment:</strong> Checkup completed</p>
+                            <p><strong>Prescription:</strong> Multivitamin supplement</p>
+                            <p><strong>Notes:</strong> All vitals normal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .records-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-box input {
+            width: 300px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .medical-records {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .record-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .record-date {
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            font-weight: 600;
+        }
+        
+        .record-details {
+            padding: 25px;
+        }
+        
+        .record-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .record-info p {
+            margin: 8px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .records-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
+</html>

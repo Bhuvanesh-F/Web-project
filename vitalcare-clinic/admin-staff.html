@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Manage Staff</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="admin-overview.html">Dashboard</a></li>
+                    <li><a href="admin-appointments.html">Appointments</a></li>
+                    <li><a href="admin-staff.html" class="active">Manage Staffs</a></li>
+                    <li><a href="admin-add-doctor.html">Add Doctor</a></li>
+                    <li><a href="admin-pets.html">Pets registered</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Admin</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="staff-management">
+                <div class="staff-sections">
+                    <div class="staff-category">
+                        <h2>Doctors</h2>
+                        <div class="staff-list">
+                            <div class="staff-member">
+                                <span>Dr. Richard Surgeon</span>
+                                <div class="staff-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                            </div>
+                            <div class="staff-member">
+                                <span>Dr. Richard Surgeon</span>
+                                <div class="staff-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="staff-category">
+                        <h2>Nurses</h2>
+                        <div class="staff-list">
+                            <div class="staff-member">
+                                <span>Nurse Sarah Johnson</span>
+                                <div class="staff-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                            </div>
+                            <div class="staff-member">
+                                <span>Nurse Michael Brown</span>
+                                <div class="staff-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .staff-management {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        
+        .staff-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .staff-category h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .staff-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .staff-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .staff-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .staff-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .staff-member {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .staff-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</body>
+</html>
