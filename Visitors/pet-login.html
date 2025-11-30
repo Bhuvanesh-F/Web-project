@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Details - VitalCare</title>
+    <title>Pet Portal - VitalCare</title>
     <style>
         * {
             margin: 0;
@@ -64,27 +64,71 @@
             color: #2c5530;
         }
         
-        /* Form Section */
-        .form-section {
+        /* Auth Section */
+        .auth-section {
             padding: 120px 0 80px;
             min-height: 80vh;
             background: #f8f9fa;
         }
         
-        .form-card {
+        .auth-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #ddd;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            color: #666;
+        }
+        
+        .tab-btn.active {
+            border-bottom-color: #2c5530;
+            color: #2c5530;
+            font-weight: bold;
+        }
+        
+        .auth-form {
             max-width: 600px;
             margin: 0 auto;
             background: white;
             padding: 3rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
         }
         
-        .form-card h2 {
+        .auth-form.active {
+            display: block;
+        }
+        
+        .auth-form h2 {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             color: #2c5530;
             font-size: 24px;
+        }
+        
+        .auth-form p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
         
         .form-group {
@@ -108,6 +152,13 @@
             font-size: 1rem;
         }
         
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
         .btn-full {
             width: 100%;
             padding: 15px;
@@ -118,7 +169,25 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+        }
+        
+        .auth-links {
+            text-align: center;
             margin-top: 1rem;
+        }
+        
+        .auth-links a {
+            color: #2c5530;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .section-title {
+            color: #2c5530;
+            margin: 2rem 0 1rem 0;
+            font-size: 18px;
+            border-bottom: 2px solid #2c5530;
+            padding-bottom: 0.5rem;
         }
         
         /* Footer */
@@ -199,14 +268,129 @@
         </div>
     </header>
 
-    <section class="form-section">
+    <section class="auth-section">
         <div class="container">
-            <div class="form-card">
-                <h2>Pet Details</h2>
-                <form class="pet-form">
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="pet-login">Login</button>
+                <button class="tab-btn" data-tab="pet-register">Create Account</button>
+            </div>
+
+            <!-- Pet Login Form -->
+            <div id="pet-login" class="auth-form active">
+                <h2>Pet Portal</h2>
+                <p>Access your pet's health records and appointments</p>
+                
+                <form class="login-form">
                     <div class="form-group">
-                        <label for="pet-age">Age / Date Of Birth</label>
-                        <input type="text" id="pet-age" placeholder="Enter age or date of birth">
+                        <label for="owner-id">Owner ID or Email</label>
+                        <input type="text" id="owner-id" placeholder="Enter your Owner ID or Email Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn-full">Login</button>
+                </form>
+                
+                <div class="auth-links">
+                    <a href="#">Forgot password?</a>
+                </div>
+            </div>
+
+            <!-- Pet Registration Form (Owner + Pet Info Combined) -->
+            <div id="pet-register" class="auth-form">
+                <h2>Create Pet Account</h2>
+                <p>Register your pet for our services</p>
+                
+                <form class="register-form">
+                    <!-- Owner Information Section -->
+                    <div class="section-title">Owner Information</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="owner-first-name">First Name</label>
+                            <input type="text" id="owner-first-name" placeholder="First Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="owner-last-name">Last Name</label>
+                            <input type="text" id="owner-last-name" placeholder="Last Name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="owner-dob">Date of Birth</label>
+                            <input type="text" id="owner-dob" placeholder="DD/MM/YYYY">
+                        </div>
+                        <div class="form-group">
+                            <label for="owner-gender">Gender</label>
+                            <select id="owner-gender">
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="owner-email">Email Address</label>
+                        <input type="email" id="owner-email" placeholder="Enter email address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="owner-phone">Contact Number</label>
+                        <input type="tel" id="owner-phone" placeholder="Enter contact number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="owner-address">Home Address</label>
+                        <input type="text" id="owner-address" placeholder="Enter full address">
+                    </div>
+
+                    <!-- Pet Information Section -->
+                    <div class="section-title">Pet Information</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet-name">Pet Name</label>
+                            <input type="text" id="pet-name" placeholder="Enter pet name">
+                        </div>
+                        <div class="form-group">
+                            <label for="pet-species">Species</label>
+                            <select id="pet-species">
+                                <option value="">Select species</option>
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="bird">Bird</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet-breed">Breed</label>
+                            <input type="text" id="pet-breed" placeholder="Enter breed">
+                        </div>
+                        <div class="form-group">
+                            <label for="pet-age">Age</label>
+                            <input type="text" id="pet-age" placeholder="Enter age">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet-gender">Pet Gender</label>
+                            <select id="pet-gender">
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pet-weight">Weight (kg)</label>
+                            <input type="text" id="pet-weight" placeholder="Enter weight">
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -218,8 +402,27 @@
                             <option value="unknown">Unknown</option>
                         </select>
                     </div>
+
+                    <!-- Account Creation Section -->
+                    <div class="section-title">Account Details</div>
                     
-                    <button type="submit" class="btn-full">Continue</button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pet-password">Password</label>
+                            <input type="password" id="pet-password" placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-pet-password">Confirm Password</label>
+                            <input type="password" id="confirm-pet-password" placeholder="Confirm password">
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" id="pet-terms">
+                        <label for="pet-terms">I agree to the clinic's terms & conditions for pet services</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-full">Create Pet Account</button>
                 </form>
             </div>
         </div>
@@ -253,5 +456,28 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const authForms = document.querySelectorAll('.auth-form');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    authForms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === tabId) {
+                            form.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
