@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Pet Care</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="book-appointment.html">Book Appointment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Guest</span>
+                    <a href="login-page.html" class="btn">Log In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="pet-care-hero">
+                <h2>Assess your Dog's body condition score</h2>
+                <a href="#" class="btn">Explore it</a>
+            </div>
+
+            <div class="pet-services">
+                <h3>Health Care</h3>
+                <div class="service-options">
+                    <div class="option-item">Health Checks</div>
+                    <div class="option-item">Complete analysis of blood and Urine</div>
+                    <div class="option-item">Urgent Help</div>
+                    <div class="option-item">Dentistry</div>
+                </div>
+
+                <h3>Grooming</h3>
+                <div class="grooming-services">
+                    <div class="grooming-grid">
+                        <div class="grooming-item">Braiding</div>
+                        <div class="grooming-item">Nail dipping</div>
+                        <div class="grooming-item">Drying</div>
+                        <div class="grooming-item">Cleaning out ears</div>
+                        <div class="grooming-item">Clock trimming</div>
+                        <div class="grooming-item">Bathing</div>
+                    </div>
+                    <a href="#" class="btn btn-secondary">Show More</a>
+                </div>
+
+                <div class="consulting-services">
+                    <h3>Consulting services related to animal care</h3>
+                    <p>Professional advice and guidance for all your pet care needs</p>
+                    <a href="book-appointment.html" class="btn">Book Consultation</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VitalCare Clinic</h3>
+                    <p>Your Health. Their Health. One Clinic.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>QUICK LINK</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>GET IN TOUCH</h3>
+                    <p>(+230) 432 1987</p>
+                    <p>info@vitalcare.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VitalCare Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .pet-care-hero {
+            background: linear-gradient(135deg, #7fcdbb 0%, #2c7fb8 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .pet-care-hero h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .pet-services {
+            margin: 40px 0;
+        }
+        
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0 40px 0;
+        }
+        
+        .option-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .grooming-services {
+            margin: 30px 0;
+        }
+        
+        .grooming-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .grooming-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .consulting-services {
+            background: #e9f7fe;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .consulting-services h3 {
+            color: var(--primary);
+        }
+    </style>
+</body>
+</html>

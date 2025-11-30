@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Patient Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="book-appointment.html">Book Appointment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Guest</span>
+                    <a href="login-page.html" class="btn">Log In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="portal-container">
+                <div class="portal-login">
+                    <h2>Patient Portal</h2>
+                    <p>Access your health records and appointments</p>
+                    
+                    <div class="login-form">
+                        <div class="form-group">
+                            <label for="portal-patient-id">Patient ID or Email</label>
+                            <input type="text" id="portal-patient-id" placeholder="Enter your Patient ID or Email Address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="portal-password">Password</label>
+                            <input type="password" id="portal-password" placeholder="Enter your password">
+                        </div>
+                        
+                        <a href="patient-dashboard.html" class="btn">Login</a>
+                    </div>
+                </div>
+                
+                <div class="portal-registration">
+                    <h2>Create an account</h2>
+                    <p>New here? Sign up now</p>
+                    
+                    <form class="registration-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" placeholder="First Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" placeholder="Last Name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reg-dob">Date of Birth</label>
+                                <input type="date" id="reg-dob" placeholder="dd/mm/yyyy">
+                            </div>
+                            <div class="form-group">
+                                <label for="id-number">ID Number</label>
+                                <input type="text" id="id-number" placeholder="Enter MC or Passport No">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reg-gender">Gender</label>
+                                <select id="reg-gender">
+                                    <option value="">Select</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" placeholder="Enter phone number">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-address">Address</label>
+                            <textarea id="reg-address" rows="3" placeholder="Enter your full address"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reg-password">Password</label>
+                                <input type="password" id="reg-password" placeholder="Enter your password">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-confirm-password">Confirm Password</label>
+                                <input type="password" id="reg-confirm-password" placeholder="Enter your password again">
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="registerPatient()">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VitalCare Clinic</h3>
+                    <p>Your Health. Their Health. One Clinic.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>QUICK LINK</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>GET IN TOUCH</h3>
+                    <p>(+230) 432 1987</p>
+                    <p>info@vitalcare.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VitalCare Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function registerPatient() {
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            alert('Registration successful! You can now log in to your account.');
+            window.location.href = 'login-page.html';
+        }
+    </script>
+
+    <style>
+        .portal-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .portal-login, .portal-registration {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .portal-login {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .login-form {
+            margin-top: 20px;
+        }
+        
+        .registration-form {
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .portal-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

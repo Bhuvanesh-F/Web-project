@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Doctor Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="doctor-dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="medical-records.html">Medical Records</a></li>
+                    <li><a href="doctor-schedule.html">Schedule</a></li>
+                    <li><a href="doctor-profile.html">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Dr. Smith</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>Dashboard</h1>
+            
+            <div class="dashboard-search">
+                <input type="text" placeholder="Search patient by name, ID, phone number...">
+            </div>
+
+            <div class="patients-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Contact</th>
+                            <th>Age</th>
+                            <th>Last Visit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Patient Name 111112</td>
+                            <td>(230) 51234567<br>patientname@gmail.com</td>
+                            <td>18</td>
+                            <td>dd/mm/yy</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Name 111113</td>
+                            <td>(230) 51234567<br>patientname@gmail.com</td>
+                            <td>30</td>
+                            <td>dd/mm/yy</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Name 111114</td>
+                            <td>(230) 51234567<br>patientname@gmail.com</td>
+                            <td>51</td>
+                            <td>dd/mm/yy</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Name 111115</td>
+                            <td>(230) 51234567<br>patientname@gmail.com</td>
+                            <td>28</td>
+                            <td>dd/mm/yy</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Name 111115</td>
+                            <td>(230) 51234567<br>patientname@gmail.com</td>
+                            <td>24</td>
+                            <td>dd/mm/yy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .dashboard-search {
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-search input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .patients-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .patients-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .patients-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .patients-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .patients-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .patients-table {
+                overflow-x: auto;
+            }
+            
+            .patients-table table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Medical Records</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="doctor-dashboard.html">Dashboard</a></li>
+                    <li><a href="medical-records.html" class="active">Medical Records</a></li>
+                    <li><a href="doctor-schedule.html">Schedule</a></li>
+                    <li><a href="doctor-profile.html">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Dr. Smith</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <div class="page-header">
+                <h1>Medical Records</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search records by patient name or diagnosis...">
+                    </div>
+                    <a href="new-record.html" class="btn">Add New Medical Record</a>
+                </div>
+            </div>
+
+            <div class="records-list">
+                <div class="record-card">
+                    <div class="record-header">
+                        <h3>May 2, 2025</h3>
+                        <span class="patient-name">Mr. Patient</span>
+                    </div>
+                    <div class="record-details">
+                        <div class="detail-item">
+                            <strong>Diagnosis:</strong> Headache
+                        </div>
+                        <div class="detail-item">
+                            <strong>Treatment:</strong> Prescribed medication and more sleep
+                        </div>
+                        <div class="detail-item">
+                            <strong>Prescription:</strong> 1000mg Panadol
+                        </div>
+                        <div class="detail-item">
+                            <strong>Notes:</strong> Follow up in 1 week
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-card">
+                    <div class="record-header">
+                        <h3>April 13, 2025</h3>
+                        <span class="patient-name">Mrs. Patient</span>
+                    </div>
+                    <div class="record-details">
+                        <div class="detail-item">
+                            <strong>Diagnosis:</strong> Headache
+                        </div>
+                        <div class="detail-item">
+                            <strong>Treatment:</strong> Checkup completed
+                        </div>
+                        <div class="detail-item">
+                            <strong>Prescription:</strong> Multivitamin supplement
+                        </div>
+                        <div class="detail-item">
+                            <strong>Notes:</strong> All vitals normal
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-card">
+                    <div class="record-header">
+                        <h3>Feb 2, 2025</h3>
+                        <span class="patient-name">Ms. Patient</span>
+                    </div>
+                    <div class="record-details">
+                        <div class="detail-item">
+                            <strong>Diagnosis:</strong> Hypertension
+                        </div>
+                        <div class="detail-item">
+                            <strong>Treatment:</strong> Prescribed medication and lifestyle changes
+                        </div>
+                        <div class="detail-item">
+                            <strong>Prescription:</strong> Lisinopril 10mg daily
+                        </div>
+                        <div class="detail-item">
+                            <strong>Notes:</strong> Follow up in 3 months
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-box input {
+            width: 300px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .records-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .record-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .record-header h3 {
+            margin: 0;
+            color: var(--primary);
+        }
+        
+        .patient-name {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .record-details {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .detail-item {
+            padding: 8px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .header-actions {
+                flex-direction: column;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+            
+            .record-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</body>
+</html>

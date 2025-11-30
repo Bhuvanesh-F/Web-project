@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Patient Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="patient-dashboard.html">Dashboard</a></li>
+                    <li><a href="my-appointments.html">Appointments</a></li>
+                    <li><a href="patient-medical-records.html">Medical Records</a></li>
+                    <li><a href="patient-reviews.html">Review</a></li>
+                    <li><a href="patient-profile.html" class="active">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Name</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-info">
+                        <h2>Patient Name (ID: 1111111)</h2>
+                        <p>Registered on: dd/mm/yyyy</p>
+                    </div>
+                    <a href="#" class="btn">Edit Profile</a>
+                </div>
+
+                <div class="profile-details">
+                    <div class="info-section">
+                        <h3>Personal Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <strong>Gender:</strong> Male
+                            </div>
+                            <div class="info-item">
+                                <strong>Date of Birth:</strong> 01/01/1990
+                            </div>
+                            <div class="info-item">
+                                <strong>NIC/Passport:</strong> N1234567891011
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>Contact Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <strong>Phone:</strong> +230 51234567
+                            </div>
+                            <div class="info-item">
+                                <strong>Email:</strong> patientname@gmail.com
+                            </div>
+                            <div class="info-item">
+                                <strong>Address:</strong> 123 Street, Reduit
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>Administrative Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <strong>Emergency Contact:</strong> John Doe (+230 57654321)
+                            </div>
+                            <div class="info-item">
+                                <strong>Insurance Provider:</strong> ABC Health / Self-paying
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .profile-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .profile-info h2 {
+            margin: 0 0 5px 0;
+            color: var(--primary);
+        }
+        
+        .profile-info p {
+            color: #666;
+            margin: 0;
+        }
+        
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .info-section h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
