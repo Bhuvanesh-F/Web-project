@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Pets Registered</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="admin-overview.html">Dashboard</a></li>
+                    <li><a href="admin-appointments.html">Appointments</a></li>
+                    <li><a href="admin-staff.html">Manage Staffs</a></li>
+                    <li><a href="admin-add-doctor.html">Add Doctor</a></li>
+                    <li><a href="admin-pets.html" class="active">Pets registered</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Admin</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>VitalCare</h1>
+            
+            <div class="pets-management">
+                <h2>Registered Pets</h2>
+                
+                <div class="pets-table-container">
+                    <table class="pets-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Owner</th>
+                                <th>Department</th>
+                                <th>Age of pet</th>
+                                <th>Date & Time</th>
+                                <th>Doctor</th>
+                                <th>Fees</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>Veterinary</td>
+                                <td>3 years</td>
+                                <td>30/08/2025 10:00 AM</td>
+                                <td>Dr. Smith</td>
+                                <td>Rs 1,500</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Sarah Wilson</td>
+                                <td>Veterinary</td>
+                                <td>5 years</td>
+                                <td>01/09/2025 2:30 PM</td>
+                                <td>Dr. Williams</td>
+                                <td>Rs 1,800</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Mike Johnson</td>
+                                <td>Veterinary</td>
+                                <td>2 years</td>
+                                <td>02/09/2025 11:00 AM</td>
+                                <td>Dr. Brown</td>
+                                <td>Rs 1,200</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .pets-management {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        
+        .pets-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        .pets-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .pets-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .pets-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .pets-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .pets-table {
+                font-size: 14px;
+            }
+            
+            .pets-table th,
+            .pets-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</body>
+</html>

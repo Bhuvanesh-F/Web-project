@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Doctor Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="doctor-dashboard.html">Dashboard</a></li>
+                    <li><a href="medical-records.html">Medical Records</a></li>
+                    <li><a href="doctor-schedule.html">Schedule</a></li>
+                    <li><a href="doctor-profile.html" class="active">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Dr. Smith</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <div class="profile-header">
+                <h1>Log Out</h1>
+                <div class="breadcrumb">
+                    <a href="doctor-dashboard.html">Dashboard</a> > 
+                    <a href="doctor-profile.html">Profile</a>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-card">
+                    <div class="profile-info">
+                        <h2>Doctor Name (ID: 9999999)</h2>
+                        <a href="#" class="btn btn-secondary">Edit Profile</a>
+                    </div>
+                    
+                    <div class="info-sections">
+                        <div class="info-section">
+                            <h3>Personal Information</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <strong>Gender:</strong> Male
+                                </div>
+                                <div class="info-item">
+                                    <strong>Date of Birth:</strong> 01/01/1990
+                                </div>
+                                <div class="info-item">
+                                    <strong>NIC/Passport:</strong> N1234567891011
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h3>Contact Information</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <strong>Phone:</strong> +230 51234567
+                                </div>
+                                <div class="info-item">
+                                    <strong>Email:</strong> doctorname@gmail.com
+                                </div>
+                                <div class="info-item">
+                                    <strong>Address:</strong> 123 Street, Reduit
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .profile-header {
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .profile-info h2 {
+            margin: 0;
+            color: var(--primary);
+        }
+        
+        .info-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .info-section h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

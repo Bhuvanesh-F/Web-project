@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Welcome</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="book-appointment.html">Book Appointment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome to VitalCare</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <div class="welcome-hero">
+                <h1>Welcome to VitalCare Clinic</h1>
+                <p class="tagline">Your Health. Their Health. One Clinic.</p>
+                <p>Comprehensive healthcare services for humans and animals</p>
+            </div>
+
+            <div class="role-selection-section">
+                <h2>Select Your Portal</h2>
+                <p>Choose your role to access the appropriate portal</p>
+                
+                <div class="role-grid">
+                    <!-- Patient Portal -->
+                    <div class="role-card" onclick="selectRole('patient')">
+                        <div class="role-icon">👤</div>
+                        <h3>Patient Portal</h3>
+                        <p>Access your health records, book appointments, and manage your care</p>
+                        <div class="role-actions">
+                            <a href="patient-login.html" class="btn">Login</a>
+                            <a href="patient-portal.html" class="btn btn-secondary">Register</a>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Portal -->
+                    <div class="role-card" onclick="selectRole('doctor')">
+                        <div class="role-icon">👨‍⚕️</div>
+                        <h3>Doctor Portal</h3>
+                        <p>Access patient records, manage appointments, and update medical records</p>
+                        <div class="role-actions">
+                            <a href="doctor-login.html" class="btn">Login</a>
+                        </div>
+                    </div>
+
+                    <!-- Nurse Portal -->
+                    <div class="role-card" onclick="selectRole('nurse')">
+                        <div class="role-icon">👩‍⚕️</div>
+                        <h3>Nurse Portal</h3>
+                        <p>Manage patient care, administer medications, and update vital signs</p>
+                        <div class="role-actions">
+                            <a href="nurse-login.html" class="btn">Login</a>
+                        </div>
+                    </div>
+
+                    <!-- Receptionist Portal -->
+                    <div class="role-card" onclick="selectRole('receptionist')">
+                        <div class="role-icon">💼</div>
+                        <h3>Receptionist Portal</h3>
+                        <p>Manage appointments, patient registration, and billing</p>
+                        <div class="role-actions">
+                            <a href="receptionist-login.html" class="btn">Login</a>
+                        </div>
+                    </div>
+
+                    <!-- Admin Portal -->
+                    <div class="role-card" onclick="selectRole('admin')">
+                        <div class="role-icon">⚙️</div>
+                        <h3>Admin Portal</h3>
+                        <p>System management, staff management, and reports</p>
+                        <div class="role-actions">
+                            <a href="admin-login.html" class="btn">Login</a>
+                        </div>
+                    </div>
+
+                    <!-- Public Portal -->
+                    <div class="role-card" onclick="selectRole('public')">
+                        <div class="role-icon">🌐</div>
+                        <h3>Public Portal</h3>
+                        <p>Explore our services, book appointments, and contact us</p>
+                        <div class="role-actions">
+                            <a href="homepage.html" class="btn">Explore</a>
+                            <a href="book-appointment.html" class="btn btn-secondary">Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-links-section">
+                <h2>Quick Access</h2>
+                <div class="quick-links">
+                    <a href="services.html" class="quick-link">
+                        <span class="link-icon">🏥</span>
+                        <span>Our Services</span>
+                    </a>
+                    <a href="book-appointment.html" class="quick-link">
+                        <span class="link-icon">📅</span>
+                        <span>Book Appointment</span>
+                    </a>
+                    <a href="contact.html" class="quick-link">
+                        <span class="link-icon">📞</span>
+                        <span>Contact Us</span>
+                    </a>
+                    <a href="our-team.html" class="quick-link">
+                        <span class="link-icon">👥</span>
+                        <span>Our Team</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VitalCare Clinic</h3>
+                    <p>Your Health. Their Health. One Clinic.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>QUICK LINK</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>GET IN TOUCH</h3>
+                    <p>(+230) 432 1987</p>
+                    <p>info@vitalcare.com</p>
+                    <p>Emergency: 118</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VitalCare Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function selectRole(role) {
+            // Store the selected role in sessionStorage for role-based navigation
+            sessionStorage.setItem('selectedRole', role);
+            
+            // You can add additional logic here for role-based features
+            console.log('Selected role:', role);
+        }
+
+        // Check if user has a preferred role from previous session
+        document.addEventListener('DOMContentLoaded', function() {
+            const preferredRole = sessionStorage.getItem('selectedRole');
+            if (preferredRole) {
+                console.log('Preferred role from previous session:', preferredRole);
+            }
+        });
+    </script>
+
+    <style>
+        .welcome-hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #2c7fb8 0%, #7fcdbb 100%);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-hero h1 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+        }
+        
+        .tagline {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .role-selection-section {
+            margin: 50px 0;
+        }
+        
+        .role-selection-section h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .role-selection-section > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .role-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+        
+        .role-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .role-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .role-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .role-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .role-actions .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        .quick-links-section {
+            margin: 50px 0;
+        }
+        
+        .quick-links-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .quick-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .quick-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            color: var(--primary);
+        }
+        
+        .link-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .quick-link span:last-child {
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-actions {
+                flex-direction: column;
+            }
+            
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .welcome-hero h1 {
+                font-size: 2em;
+            }
+            
+            .tagline {
+                font-size: 1.2em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

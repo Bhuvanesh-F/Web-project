@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Doctor Overview</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="homepage.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="doctor-dashboard-alt.html" class="active">Dashboard</a></li>
+                    <li><a href="doctor-patients.html">Patients</a></li>
+                    <li><a href="doctor-schedule-alt.html">Schedule</a></li>
+                    <li><a href="doctor-profile.html">Profile</a></li>
+                </ul>
+                <div class="user-info">
+                    <span>Welcome, Doctor</span>
+                    <a href="homepage.html" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-content">
+            <h1>Dashboard</h1>
+            
+            <div class="doctor-dashboard-overview">
+                <div class="overview-section">
+                    <h3>Today's Schedule</h3>
+                    <div class="schedule-summary">
+                        <div class="schedule-stat">3 Scheduled</div>
+                        <div class="schedule-list">
+                            <div class="time-slot">
+                                <strong>9:00</strong>
+                                <span>Patient Name</span>
+                            </div>
+                            <div class="time-slot">
+                                <strong>11:00</strong>
+                                <span>Patient Name</span>
+                            </div>
+                            <div class="time-slot">
+                                <strong>15:00</strong>
+                                <span>Patient Name</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-section">
+                    <h3>Medical Records</h3>
+                    <div class="action-card">
+                        <p>Access and manage patient medical records</p>
+                        <a href="medical-records.html" class="btn">View</a>
+                    </div>
+                </div>
+
+                <div class="overview-section stats-section">
+                    <div class="stat-item">
+                        <h3>Emergency Cases</h3>
+                        <div class="stat-number emergency">25</div>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Critical patients</h3>
+                        <div class="stat-number critical">3</div>
+                        <a href="#" class="btn-link">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .doctor-dashboard-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .overview-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-summary {
+            margin-top: 15px;
+        }
+        
+        .schedule-stat {
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .time-slot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .action-card {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .action-card p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .stats-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-number.emergency {
+            color: var(--warning);
+        }
+        
+        .stat-number.critical {
+            color: var(--danger);
+        }
+        
+        .btn-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</body>
+</html>
