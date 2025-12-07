@@ -118,4 +118,256 @@
         }
     </style>
 </body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCare - Doctor Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="validation-enhanced.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">VitalCare</a>
+                <ul class="nav-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="book-appointment.html">Book Appointment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="login-page">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>Doctor Portal</h1>
+                    <p>Access patient records and schedules</p>
+                    <div class="security-badge secure">🔐 Secure Access</div>
+                </div>
+                
+                <!-- Session timeout warning -->
+                <div id="sessionWarning" class="session-warning">
+                    ⚠️ Session expires in <span id="sessionTimer">15:00</span>
+                </div>
+                
+                <!-- Security notice -->
+                <div class="form-security-notice warning">
+                    ⚠️ Unauthorized access to patient records is prohibited by law.
+                </div>
+                
+                <form id="doctorLoginForm" class="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="doctor-id" class="required">Doctor ID</label>
+                        <div class="input-group-with-icon">
+                            <input type="text" 
+                                   id="doctor-id" 
+                                   name="doctor_id"
+                                   placeholder="Enter your Doctor ID" 
+                                   required
+                                   pattern="DR-\d{5}"
+                                   title="Format: DR-XXXXX (5 digits)"
+                                   maxlength="8">
+                            <span class="input-icon" id="doctor-id-icon"></span>
+                        </div>
+                        <div id="doctor-id-error" class="validation-feedback"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doctor-password" class="required">Password</label>
+                        <div class="input-group-with-icon">
+                            <input type="password" 
+                                   id="doctor-password" 
+                                   name="password"
+                                   placeholder="Enter your password" 
+                                   required
+                                   minlength="10"
+                                   title="Minimum 10 characters required">
+                            <span class="input-icon" id="doctor-password-icon"></span>
+                        </div>
+                        
+                        <!-- Password strength meter -->
+                        <div class="password-strength-container">
+                            <div class="strength-meter">
+                                <div id="password-strength-bar" class="strength-meter-fill strength-0"></div>
+                            </div>
+                            <div id="password-strength" class="strength-text"></div>
+                        </div>
+                        
+                        <div class="password-toggle">
+                            <input type="checkbox" id="show-doctor-password" data-target="doctor-password">
+                            <label for="show-doctor-password">Show password</label>
+                        </div>
+                        <div id="doctor-password-error" class="validation-feedback"></div>
+                    </div>
+                    
+                    <!-- Two-factor authentication simulation -->
+                    <div class="form-group">
+                        <label for="security-code">Security Code <span class="security-tooltip" title="Enter the code sent to your registered device">?</span></label>
+                        <input type="text" 
+                               id="security-code"
+                               placeholder="Enter 6-digit code"
+                               pattern="\d{6}"
+                               maxlength="6"
+                               title="6-digit security code">
+                    </div>
+                    
+                    <!-- CAPTCHA -->
+                    <div class="captcha-container">
+                        <label>Security Verification</label>
+                        <div class="captcha-display" id="doctorCaptchaDisplay"></div>
+                        <div class="captcha-input-group">
+                            <input type="text" 
+                                   id="doctor-captcha-input" 
+                                   placeholder="Enter the code above"
+                                   required>
+                            <button type="button" class="btn btn-small" onclick="refreshDoctorCaptcha()">⟳ Refresh</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember-doctor" name="remember">
+                            <span>Remember this device</span>
+                        </label>
+                        <a href="forgot-password.html?role=doctor" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="doctorLoginBtn">
+                        <span class="btn-text">Login to Doctor Portal</span>
+                        <span class="btn-loading" style="display: none;">🔐 Authenticating...</span>
+                    </button>
+                    
+                    <!-- Rate limiting notice -->
+                    <div class="form-security-notice">
+                        🔒 After 3 failed attempts, account will be locked and admin notified.
+                    </div>
+                    
+                    <div class="login-divider">
+                        <span>Need help?</span>
+                    </div>
+                    
+                    <div class="login-help">
+                        <p>Contact IT Support: <a href="tel:+2304321987">(+230) 432 1987</a> (24/7)</p>
+                        <p>Email: <a href="mailto:it.support@vitalcare.com">it.support@vitalcare.com</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Security Features Information -->
+        <div class="security-features">
+            <h3>Security Features Enabled:</h3>
+            <div class="features-grid">
+                <div class="feature">
+                    <span class="feature-icon">🔐</span>
+                    <span>Encrypted Connection (SSL/TLS)</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">👁️</span>
+                    <span>Activity Logging & Monitoring</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📱</span>
+                    <span>Two-Factor Authentication Ready</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">⏰</span>
+                    <span>Automatic Session Timeout</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize CAPTCHA
+        function refreshDoctorCaptcha() {
+            const captcha = VitalCareSecurity.generateCaptcha();
+            document.getElementById('doctorCaptchaDisplay').textContent = captcha;
+            document.getElementById('doctorCaptchaDisplay').dataset.expected = captcha;
+            document.getElementById('doctor-captcha-input').value = '';
+            document.getElementById('doctor-captcha-input').classList.remove('error', 'success');
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshDoctorCaptcha();
+            
+            // Session timer
+            let sessionTime = 900; // 15 minutes in seconds
+            const updateTimer = () => {
+                const minutes = Math.floor(sessionTime / 60);
+                const seconds = sessionTime % 60;
+                document.getElementById('sessionTimer').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (sessionTime <= 60) {
+                    document.getElementById('sessionWarning').style.background = 
+                        'linear-gradient(135deg, #dc3545, #c82333)';
+                }
+                
+                sessionTime--;
+                if (sessionTime > 0) setTimeout(updateTimer, 1000);
+            };
+            updateTimer();
+            
+            // Reset timer on activity
+            ['click', 'keypress', 'mousemove'].forEach(event => {
+                document.addEventListener(event, () => {
+                    sessionTime = 900;
+                });
+            });
+        });
+        
+        // Form will be automatically handled by FormSecurity class
+    </script>
+    
+    <style>
+        .security-features {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+        
+        .feature-icon {
+            font-size: 20px;
+        }
+        
+        .btn-loading {
+            display: none;
+        }
+        
+        .btn.loading .btn-text {
+            display: none;
+        }
+        
+        .btn.loading .btn-loading {
+            display: inline;
+        }
+    </style>
+</body>
 </html>
