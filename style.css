@@ -1,0 +1,58 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; height: 100vh; background: #f4f6f9; }
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+}
+
+/* Logo Styling */
+.logo-container {
+    text-align: center;
+    padding: 0 20px 10px 20px; /* Padding for spacing around the logo */
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 10px;
+}
+.clinic-logo {
+    max-width: 100%; /* Ensures logo scales down if needed */
+    height: auto;
+    border-radius: 4px; /* Optional: gives logo a slight rounded corner */
+}
+
+.sidebar h2 { text-align: center; margin-bottom: 30px; font-size: 22px; }
+.sidebar a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #cfd8dc;
+    display: block;
+    transition: 0.3s;
+}
+.sidebar a:hover { background-color: #495057; color: white; }
+.sidebar a.active { background-color: #007bff; color: white; }
+.logout { margin-top: auto; background: #dc3545; text-align: center; }
+.logout:hover { background: #c82333; }
+
+/* Main Content Styling */
+.main-content {
+    margin-left: 250px; /* Same as sidebar width */
+    flex: 1;
+    padding: 20px;
+    width: calc(100% - 250px);
+    overflow-y: auto;
+}
+
+/* Forms and Tables */
+.form-container { background: white; padding: 20px; border-radius: 8px; max-width: 500px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+button.btn-submit { background: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer; width: 100%; }
+table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+th { background: #007bff; color: white; }
