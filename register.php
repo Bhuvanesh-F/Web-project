@@ -1,5 +1,5 @@
 <?php
-session_start(); // Added: Need session for CSRF token
+session_start(); 
 include 'db_connect.php';
 require_once 'validate_user.php';
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'] ?? '';
         $confirm_password = $_POST['confirm_password'] ?? '';
         
-        // Enhanced Server-side validation using YOUR functions
+        // Enhanced Server-side validation
         if (!validateEmail($email)) $errors[] = 'Invalid email format';
         if (!validateUsername($username)) $errors[] = 'Username must be 3-20 alphanumeric chars';
         if (!validatePassword($password)) $errors[] = 'Password must be 8+ chars with 1 uppercase, 1 lowercase, 1 number';
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Check duplicates only if validation passed
         if (empty($errors)) {
             $stmt = $conn->prepare("SELECT admin_id FROM human_admins WHERE email = ? OR username = ?");
-            $stmt->bind_param("ss", $email, $username); // Fixed: Only 2 parameters needed
+            $stmt->bind_param("ss", $email, $username);
             
             if ($stmt->execute()) {
                 $result = $stmt->get_result();
@@ -90,4 +90,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Already have an account? <a href="login.php">Login here</a></p>
     </form>
 </body>
+
 </html>
