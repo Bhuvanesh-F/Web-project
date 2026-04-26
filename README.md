@@ -1,245 +1,297 @@
-# VitalCare — Individual Contribution README
-### Ayman Muhammad Shaikh · Student ID: 2412575
-### ICT2213Y — Web Technologies & Security | University of Mauritius
+# VitalCare Clinic | Ayman Muhammad Shaikh | Student ID: 2412575
+
+> **ICT2213Y(3) – Web Technologies and Security | Week 20 Submission**  
+> Faculty of Information and Digital Technologies, University of Mauritius
 
 ---
 
-## Table of Contents
+## Student Information
 
-1. [Project Overview](#1-project-overview)
-2. [My Individual Contribution](#2-my-individual-contribution)
-3. [Technical Implementation](#3-technical-implementation)
-4. [Features Implemented](#4-features-implemented)
-5. [Setup & Installation](#5-setup--installation)
-6. [Challenges & Solutions](#6-challenges--solutions)
-7. [Testing & Validation](#7-testing--validation)
-8. [Screenshots / Demo](#8-screenshots--demo)
-9. [Conclusion](#9-conclusion)
-
----
-
-## 1. Project Overview
-
-**VitalCare** is a fully-functional web application designed to streamline the management of a combined human and pet healthcare clinic. The system serves six distinct user roles like Admin, Human Doctor, Vet (Pet Doctor), Nurse, Receptionist and Patient/Pet Owner, Moreover, each with their own secure, role-isolated dashboard and feature set.
-
-The Week 20 deliverable represents a complete architectural upgrade from the Week 10 PHP/MySQL prototype to a production-grade **Laravel MVC** application. This migration introduces RESTful API design, AJAX-powered dynamic UIs, Eloquent ORM, Blade templating, JSON Schema validation, and a hardened security layer which are all in direct alignment with the ICT2213Y assignment brief.
-
-**Technology Stack (Project-Wide):** Laravel 10, PHP 8.1, MySQL, Laravel Sanctum, Blade, Bootstrap 5, jQuery/AJAX, Ajv.js, Git/GitHub.
+| Field       | Details                                      |
+|-------------|----------------------------------------------|
+| **Name**    | Ayman Muhammad Shaikh                        |
+| **Student ID**    | 2412575                                |
+| **Course**  | ICT2213Y(3) – Web Technologies and Security  |
+| **Instructors** | Mr Anwar Chutoo & Mrs Begum Durgahee     |
+| **Branch**  | `Shaikh_Ayman_2412575`                       |
+| **Submission** | Week 20                                   |
 
 ---
 
-## 2. My Individual Contribution
+## Project Overview
 
-**Role:** Full Stack — Security Lead, Laravel Architect, Modularisation & Advanced Techniques
+**VitalCare** is a full-stack clinic management web application built to digitise and secure the daily operations of a dual-purpose healthcare facility — one serving human patients and one serving pet owners and their animals. The system consolidates patient registration, appointment management, medical records, staff dashboards, and administrative oversight into a single and role-aware platform.
 
-My responsibility covered the broadest cross-cutting concerns of the project: setting up the entire Laravel application skeleton that the whole team builds upon, implementing the authentication system every other member depends on, and owning all three areas explicitly cited by the assignment brief for **additional/bonus marks**:
+### Objectives
 
-| Assignment Bonus Criterion | My Deliverable |
-|---|---|
-| Project Modularisation | Module-per-role folder structure with zero cross-module leakage |
-| Naming Conventions | `NAMING_CONVENTIONS.md` — enforced across the entire codebase |
-| Self-Learned Technology | Bootstrap 5 integrated as the primary CSS framework |
+- Deliver a fully functional web application with both a **RESTful JSON API** (consumed via AJAX) and a **Blade-rendered web front end**.
+- Implement **role-based access control** across seven distinct user roles: `admin`, `doctor`, `vet`, `nurse`, `receptionist`, `patient`, and `pet_owner`.
+- Demonstrate real-world mitigation of the four core security threats outlined in the assignment brief: **SQL Injection**, **Session Hijacking**, **XSS**, and **CSRF**.
+- Apply the **Laravel MVC framework**, **Sanctum token authentication**, and proper software engineering principles (PSR-4 autoloading, FormRequest validation, Service layer, custom Middleware).
 
-### Scope Summary
+### Assignment Context
 
-- **Laravel Project Setup** — scaffolded the entire application structure, `.env` configuration, service providers, and master Blade layout
-- **Laravel Sanctum Authentication API** — all four auth endpoints (`login`, `register`, `logout`, `me`) with role-based token abilities
-- **Security Middleware** — three custom middleware classes: `RoleCheck`, `SanitizeInput`, `SecureSession`
-- **Route Architecture** — all web and API routes, grouped by role with middleware stacks
-- **Modularisation** — module-per-role controller/route/view separation documented in `MODULE_STRUCTURE.md`
-- **Naming Conventions** — project-wide standards documented in `NAMING_CONVENTIONS.md`
-- **Bootstrap 5** — self-learned and integrated as the primary responsive CSS framework
+This submission satisfies the Week 20 deliverables: a live project demonstration with AJAX, JSON, JSON Schema (via Laravel validation), and full Laravel integration which is built upon the Week 10 baseline of HTML, PHP, jQuery, and database connectivity.
 
 ---
 
-## 3. Technical Implementation
+## Features Implemented
 
-### Technologies & Tools
+### Authentication & Session Management
+- **Dual authentication layer**: Session-based login for web dashboards (Blade views) and token-based login for the REST API (Laravel Sanctum).
+- **Multi-step registration flow**: Patient and pet owner registration is split across three conceptual steps, collected client-side and submitted to a single validated endpoint.
+- **Role-based post-login redirect**: After authentication, users are automatically sent to the correct dashboard for their role (`/admin/dashboard`, `/doctor/dashboard`, `/patient/dashboard`, etc.).
+- **Single active session enforcement**: On API login, all previous tokens for the user are revoked before a new one is issued, preventing concurrent session abuse.
+- **Remember me** support on web login.
+- **Secure logout**: Full session invalidation and CSRF token regeneration on both web and API logout paths.
 
-| Technology | Purpose |
-|---|---|
-| **Laravel 10** | MVC framework, routing, middleware, Blade |
-| **Laravel Sanctum** | API token-based authentication |
-| **PHP 8.1** | Match expressions, named arguments, typed properties |
-| **MySQL** | Relational database (configured via `.env`) |
-| **Bootstrap 5** (self-learned) | Responsive UI framework — navbar, grid, cards, modals |
-| **Git / GitHub** | Version control, branch `feature/auth-laravel` |
+### Role-Based Access Control (RBAC)
+- Seven roles enforced at the route level via a custom `RoleCheck` middleware.
+- Role abilities are embedded directly into Sanctum tokens at issuance (e.g., `admin:*`, `doctor:*`, `patient:read`).
+- API routes are grouped by role with layered middleware: `auth:sanctum` + `role:<allowed_roles>`.
+- Web routes use `auth` + `role:<role>` + `secure.session` middleware stacks.
+- Unauthorised users are redirected to their own dashboard rather than shown a generic error page.
+- The `User` model exposes `hasRole()`, `hasAnyRole()`, `isAdmin()`, and `isMedicalStaff()` helper methods for clean programmatic role checks.
 
-### Authentication Flow
+### REST API (JSON / AJAX)
+- Full CRUD REST API covering: **authentication**, **admin**, **doctors**, **patients**, **appointments**, **medical records**, **nurses**, **receptionists**, **pet owners**, **pets**, **reviews**, and a **contact** endpoint.
+- All responses follow a consistent JSON envelope: `{ success, message, data }`.
+- Public health-check endpoint (`GET /api/health`) returns system status and timestamp.
+- API routes are versioned under the `/api` prefix via `RouteServiceProvider`.
+- Rate limiting applied: `throttle:5,1` on login (5 requests/minute), `throttle:10,1` on registration, `throttle:60,1` on all other protected endpoints.
 
-```
-POST /api/auth/login
-  └─> LoginRequest (validates email + password format)
-  └─> Auth::attempt() — bcrypt comparison
-  └─> Previous tokens revoked (single-session enforcement)
-  └─> Sanctum token issued with role-based abilities
-  └─> JSON response: { token, token_type, user, dashboard_url }
+### Admin Dashboard
+- `GET /api/admin/statistics` returns live system-wide counters (total patients, doctors, vets, nurses, receptionists, pet owners, and users) for AJAX-driven dashboard widgets.
+- `GET /api/admin/audit-logs` provides **paginated** audit log entries with metadata (`current_page`, `last_page`, `per_page`, `total`) for the admin panel table.
+- User CRUD operations: create, read, update, and delete users via the admin API.
+- Admin web routes are protected by an additional `secure.session` middleware layer.
 
-POST /api/auth/register
-  └─> RegisterRequest (validates name, email, password, role)
-  └─> User::create() — password hashed via Hash::make()
-  └─> Token issued immediately
-  └─> JSON response: { token, user }
+### Security Mitigations
 
-POST /api/auth/logout  [auth:sanctum]
-  └─> currentAccessToken()->delete()
-  └─> JSON response: { success: true }
+#### SQL Injection Prevention
+- All database interactions use **Laravel's Eloquent ORM** and the **Query Builder** with parameterised bindings. No raw SQL string concatenation is used.
+- The `ReviewController` demonstrates the Query Builder approach (`DB::table()->join()->where()->select()->get()`), with all user-supplied values bound as parameters.
 
-GET /api/auth/me  [auth:sanctum]
-  └─> Returns authenticated user profile (no password hash exposed)
-```
+#### XSS Prevention
+- A custom `SanitizeInput` middleware is applied globally to all `POST`, `PUT`, and `PATCH` requests. It recursively strips HTML/PHP tags via `strip_tags()`, converts special characters to HTML entities via `htmlspecialchars(ENT_QUOTES | ENT_HTML5)`, and removes null bytes.
+- Password and token fields are explicitly exempted from sanitisation to prevent corruption of bcrypt hashes.
+- Blade's `{{ }}` syntax auto-escapes all output in views.
 
-### Role-Based Token Abilities
+#### Session Hijacking Prevention
+- A custom `SecureSession` middleware is applied to all authenticated web routes. It builds a **session fingerprint** from a SHA-256 hash of the user's IP address and User-Agent string.
+- On every authenticated request, the fingerprint is compared against the stored value. A mismatch triggers immediate logout, session invalidation, and a `401` response.
+- Session ID is **regenerated** on first bind and at every login to prevent session fixation attacks.
+- An **idle timeout** (30 minutes) automatically invalidates sessions for inactive users.
 
-Each user role receives a scoped set of token abilities at login, preventing privilege escalation at the API layer:
+#### CSRF Prevention
+- Laravel's built-in `VerifyCsrfToken` middleware is active for all web routes.
+- API routes (`api/*`) are correctly excluded because they are protected by Sanctum Bearer tokens instead — this is explicitly documented in the middleware to prevent future accidental exemptions.
+- CSRF tokens are regenerated after every login and logout event.
 
-```php
-'admin'        => ['admin:*', 'doctor:read', 'patient:read', 'appointment:*'],
-'doctor'       => ['doctor:*', 'patient:read', 'appointment:read', 'record:*'],
-'vet'          => ['vet:*', 'pet:read', 'pet-appointment:read', 'pet-record:*'],
-'nurse'        => ['nurse:*', 'patient:read', 'appointment:read'],
-'receptionist' => ['receptionist:*', 'appointment:*', 'patient:read'],
-'pet_owner'    => ['pet-owner:*', 'pet:*', 'pet-appointment:*'],
-'patient'      => ['patient:read', 'appointment:read', 'record:read'],
-```
+### Audit Logging
+- A dedicated `AuditService` (Service layer) and `AuditLog` model provide append-only audit trail records for all significant actions.
+- Each log entry captures: `action_type`, `performed_by` (user ID), `performed_by_role`, `affected_table`, `affected_record_id`, `description`, and `ip_address`.
+- The `AuditLog` model disables `UPDATED_AT` to enforce immutability — audit records cannot be modified after creation.
+- Audit log writes are wrapped in `try/catch` so that a logging failure never interrupts the main request flow.
 
-### Middleware Stack
+### Input Validation
+- Dedicated `FormRequest` classes (`LoginRequest`, `RegisterRequest`) centralise validation logic away from controllers.
+- `RegisterRequest` enforces a **strong password policy** using Laravel's `Password::min(8)->letters()->numbers()->mixedCase()` rule.
+- Phone number input is validated against a regex pattern (`/^\+?[\d\s\-]{7,15}$/`).
+- Email uniqueness is enforced at both the validation layer and the database level (`UNIQUE` constraint).
+- All `FormRequest` classes override `failedValidation()` to return a structured JSON error response consistent with the API envelope format.
 
-Every authenticated web route passes through three middleware layers applied in `Kernel.php`:
+### Database
+- **MySQL** database (`vitalcare_db`) designed to 3NF with `utf8mb4` charset for full Unicode support.
+- Schema includes tables for: `users`, `human_patients`, appointments, medical records, pets, pet owners, audit logs, reviews, and password reset tokens.
+- Laravel migrations are provided for `users`, `audit_logs`, and `password_reset_tokens`, with `db:seed` support to bootstrap default admin, doctor, and patient accounts.
+- The `users` table uses an `ENUM` role column with a database index on `role` for fast middleware lookups.
 
-```
-auth           — Laravel's built-in authentication check
-role:{role}    — RoleCheck: verifies user's role matches the route's requirement
-secure.session — SecureSession: fingerprint binding + idle timeout
-```
-
-### Key Files
-
-```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   └── Api/
-│   │       └── AuthController.php       ← All 4 auth endpoints
-│   ├── Middleware/
-│   │   ├── RoleCheck.php                ← RBAC enforcement
-│   │   ├── SanitizeInput.php            ← XSS stripping on all POST/PUT/PATCH
-│   │   └── SecureSession.php           ← Session hijacking prevention
-│   ├── Kernel.php                       ← Middleware registration
-│   └── Requests/
-│       ├── LoginRequest.php             ← Validated login input
-│       └── RegisterRequest.php          ← Validated registration input
-routes/
-├── web.php                              ← Role-grouped Blade routes
-└── api.php                              ← REST API routes with auth guards
-resources/views/
-└── layouts/
-    └── app.blade.php                    ← Master Blade layout (Bootstrap 5)
-config/
-└── sanctum.php                          ← Token expiry, guard configuration
-public/
-└── robots.txt                           ← Prevents crawler indexing of sensitive routes
-NAMING_CONVENTIONS.md
-MODULE_STRUCTURE.md
-```
+### Contact & Reviews
+- A `ContactController` handles the contact form submission via `POST /api/contact`.
+- A `ReviewController` allows authenticated patients and pet owners to submit reviews (pending admin moderation) and retrieves approved reviews for public display, joined with user name and role.
 
 ---
 
-## 4. Features Implemented
+## Technologies Used
 
-### A. Laravel Project Scaffolding
-
-Initialised the full Laravel project structure used by all six team members. Configured `.env` for MySQL connectivity, registered all service providers, and defined the application-level middleware pipeline in `Kernel.php`. This foundational setup was a prerequisite for every other team member's work.
-
-### B. Sanctum API Authentication (`AuthController.php`)
-
-Implemented all four authentication endpoints as a clean, documented RESTful API:
-
-- **`POST /api/auth/login`** — validates credentials via `LoginRequest`, enforces single active session by revoking prior tokens, issues a scoped Sanctum token with role-based abilities, and logs the event.
-- **`POST /api/auth/register`** — accepts new `patient` or `pet_owner` registrations via `RegisterRequest`, hashes the password with `Hash::make()`, and returns a token on creation.
-- **`POST /api/auth/logout`** — performs targeted token revocation (`currentAccessToken()->delete()`) rather than revoking all user sessions.
-- **`GET /api/auth/me`** — returns the authenticated user's profile, explicitly excluding the password hash from the response.
-
-### C. Role-Based Access Control (`RoleCheck.php`)
-
-Designed and implemented the `RoleCheck` middleware, which enforces role-based access on every authenticated route. The middleware accepts variadic role arguments, enabling flexible multi-role permissions on a single route. On failure, JSON consumers receive a structured `403` error while Blade consumers are redirected to their own dashboard — a UX-aware approach that avoids dead-end error pages.
-
-### D. XSS Input Sanitisation (`SanitizeInput.php`)
-
-Built a defence-in-depth sanitisation layer that runs on all `POST`, `PUT`, and `PATCH` requests before they reach any controller or validation layer. The middleware:
-
-- Strips all HTML/PHP tags with `strip_tags()`
-- Converts special characters to HTML entities with `htmlspecialchars(ENT_QUOTES | ENT_HTML5)`
-- Removes null bytes (a secondary injection vector)
-- Recursively sanitises nested arrays
-- Exempts sensitive fields (`password`, `_token`) that must not be mutated
-
-### E. Session Hijacking Prevention (`SecureSession.php`)
-
-Implemented a custom `SecureSession` middleware that mitigates session hijacking through three mechanisms:
-
-1. **Session Fingerprinting** — binds the session to a SHA-256 hash of the user's IP address and `User-Agent`. Any mismatch (indicating a stolen session token) triggers immediate logout and session invalidation.
-2. **Session Fixation Prevention** — regenerates the session ID on the first authenticated request.
-3. **Idle Timeout Enforcement** — invalidates sessions idle for more than 30 minutes.
-
-### F. Route Architecture (`web.php` & `api.php`)
-
-Designed and implemented the complete routing layer for the application:
-
-- **`web.php`**: Seven role-isolated route groups (Admin, Doctor, Nurse, Patient, Pet Owner, Receptionist, Public), each with a `prefix`, `middleware` stack (`auth` + `role:{role}` + `secure.session`), and named route prefix.
-- **`api.php`**: RESTful API routes separated into public (auth) and protected (Sanctum-guarded) groups, with rate limiting (`throttle:5,1` on login/register, `throttle:60,1` on general API).
-
-### G. Master Blade Layout (`layouts/app.blade.php`)
-
-Created the master Blade layout consumed via `@extends('layouts.app')` by all team members' views. Integrated Bootstrap 5 grid, navbar with `@auth`/`@guest` conditional rendering, and role-aware navigation highlighting.
-
-### H. Project Modularisation *(Bonus Marks)*
-
-Enforced a module-per-role folder structure across the entire project, ensuring zero cross-module logic leakage. Each role has its own Controller namespace, route group, and Blade view directory. Documented in `MODULE_STRUCTURE.md` with a full folder tree and module diagram for the presentation.
-
-### I. Naming Conventions *(Bonus Marks)*
-
-Defined and documented project-wide naming standards in `NAMING_CONVENTIONS.md`, adopted by all team members:
-
-| Artefact | Convention | Example |
-|---|---|---|
-| Controllers | PascalCase | `AuthController.php` |
-| Routes/URLs | kebab-case | `/api/medical-records` |
-| Blade views | snake_case | `doctor_dashboard.blade.php` |
-| DB columns | snake_case | `appointment_date` |
-| JS files | kebab-case filenames | `ajax-doctor.js` |
-| JS functions | camelCase | `loadAppointments()` |
-
-### J. Bootstrap 5 Integration *(Self-Learned, Bonus Marks)*
-
-Self-studied and integrated Bootstrap 5 as the primary CSS framework, replacing all custom CSS components. Applied the Bootstrap grid system for responsive layouts, and replaced custom components with Bootstrap equivalents (navbar, cards, modals, forms, badges). This was explicitly flagged as a self-learned technology in the presentation, as cited in the assignment brief.
-
-### K. Security Hardening (Additional)
-
-- `robots.txt` published to `public/` to prevent crawlers from indexing sensitive authenticated routes
-- `NOINDEX` meta tags applied via Blade to all non-public pages
-- Brute-force protection via route-level `throttle` middleware on all auth endpoints
-- Failed login attempts logged with IP and User-Agent for security auditing
+| Category          | Technology / Tool                          |
+|-------------------|--------------------------------------------|
+| **Backend**       | PHP 8.1+, Laravel 10                       |
+| **Authentication**| Laravel Sanctum (API tokens), Laravel Auth (web sessions) |
+| **Database**      | MySQL 8, Laravel Eloquent ORM, Query Builder |
+| **Frontend**      | Blade templating engine, HTML5, CSS3       |
+| **HTTP Client**   | Guzzle 7 (`guzzlehttp/guzzle`)             |
+| **API Standard**  | RESTful JSON API                           |
+| **Security**      | Custom Middleware (RBAC, XSS sanitisation, session fingerprinting), CSRF tokens, bcrypt hashing |
+| **Testing**       | PHPUnit 10, Mockery (configured)           |
+| **Dev Tools**     | Laravel Pint (code style), Laravel Sail, Faker, Spatie Ignition |
+| **Version Control**| Git / GitHub (`feature/auth-laravel` branch) |
 
 ---
 
-## 5. Setup & Installation
+## System Design / Architecture
+
+The project follows Laravel's **MVC (Model-View-Controller)** architecture with an additional **Service layer** for cross-cutting concerns such as audit logging.
+
+```
+vitalcare-fixed/
+├── app/
+│   ├── Console/            # Artisan command kernel
+│   ├── Exceptions/         # Global exception handler
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Api/        # JSON API controllers (AuthController, AdminApiController, ...)
+│   │   │   ├── Admin/      # Blade web controllers — Admin
+│   │   │   ├── Doctor/     # Blade web controllers — Doctor
+│   │   │   ├── Nurse/      # Blade web controllers — Nurse
+│   │   │   ├── Patient/    # Blade web controllers — Patient
+│   │   │   ├── PetOwner/   # Blade web controllers — Pet Owner
+│   │   │   ├── Receptionist/
+│   │   │   ├── PublicController.php   # Home, About, Contact pages
+│   │   │   └── WebAuthController.php  # Session login/logout/register
+│   │   ├── Middleware/
+│   │   │   ├── RoleCheck.php          # RBAC enforcement
+│   │   │   ├── SecureSession.php      # Session hijacking prevention
+│   │   │   ├── SanitizeInput.php      # XSS input sanitisation
+│   │   │   └── VerifyCsrfToken.php    # CSRF protection
+│   │   ├── Requests/
+│   │   │   ├── LoginRequest.php       # API login validation
+│   │   │   └── RegisterRequest.php    # API registration validation
+│   │   └── Kernel.php                 # Middleware registration
+│   ├── Models/
+│   │   ├── User.php                   # Central auth model (Sanctum + RBAC helpers)
+│   │   └── AuditLog.php               # Immutable audit trail model
+│   ├── Providers/                     # Service providers (Auth, Route, Event)
+│   └── Services/
+│       └── AuditService.php           # Centralised audit logging service
+├── config/                            # App, auth, database, session, sanctum configs
+├── database/
+│   ├── migrations/                    # Schema version control
+│   ├── seeders/                       # Default user seeding
+│   └── (vitalcare_db.sql)             # Full MySQL schema export
+├── resources/views/                   # Blade templates
+├── routes/
+│   ├── api.php                        # All /api/* routes
+│   └── web.php                        # All session-based web routes
+├── public/                            # Web root (index.php)
+└── composer.json                      # Dependency manifest
+```
+
+### Component Interaction
+
+1. **HTTP Request** → hits `public/index.php` → Laravel bootstraps via `bootstrap/app.php`.
+2. **Middleware pipeline** executes in order: `SanitizeInput` (XSS) → `VerifyCsrfToken` (web only) → `Authenticate` → `RoleCheck` → `SecureSession` (web only).
+3. **Router** (`api.php` / `web.php`) dispatches to the appropriate **Controller**.
+4. **FormRequest** classes intercept and validate input before the controller method is invoked.
+5. **Controllers** interact with **Models** (Eloquent) or **Services** (AuditService) and return either a Blade `view()` or a `response()->json()`.
+6. **AuditService** writes append-only records to the `audit_logs` table; failures are caught and logged without disrupting the primary response.
+
+---
+
+## Implementation Details
+
+### Dual Authentication Architecture
+
+The system implements two parallel authentication flows to satisfy both web and API consumers:
+
+- **Web (session-based)**: `WebAuthController` uses `Auth::attempt()`, `Session::regenerate()`, and role-based redirect. Protected routes carry the `secure.session` middleware which fingerprints each request.
+- **API (token-based)**: `AuthController` uses `Auth::attempt()` followed by `$user->createToken()` with role-scoped abilities. The `auth:sanctum` guard validates the `Authorization: Bearer <token>` header on subsequent requests.
+
+### Role-Scoped Token Abilities
+
+When a Sanctum token is issued, it carries a set of abilities derived from the user's role via `getRoleAbilities()`. For example, an admin token carries `['admin:*', 'doctor:read', 'patient:read', 'appointment:*']`, while a patient token carries `['patient:read', 'appointment:read', 'record:read']`. This provides a second layer of authorisation beyond route-level role middleware.
+
+### Session Fingerprinting
+
+The `SecureSession` middleware computes `hash('sha256', $ip . '|' . $userAgent)` on each request and compares it to the stored fingerprint. This binds the session to a specific client context without storing any sensitive raw data. If the fingerprint changes — as it would when a stolen session cookie is used from a different network or browser — the session is immediately destroyed.
+
+### SanitizeInput Middleware — Defence in Depth
+
+While Eloquent's parameterised queries already prevent SQL injection and Blade's `{{ }}` escapes output, the `SanitizeInput` middleware adds a proactive layer by stripping tags and encoding entities on all inbound POST/PUT/PATCH data before it reaches the controller. Password fields are whitelisted to prevent bcrypt hash corruption.
+
+### Paginated Audit Log API
+
+The `GET /api/admin/audit-logs` endpoint uses `AuditLog::paginate($perPage)` with a maximum cap of 100 records per page. The JSON response includes both `data` (the log entries) and a `meta` block with pagination metadata, enabling the frontend to build a paginated admin table via AJAX without page reloads.
+
+### Immutable Audit Log Model
+
+The `AuditLog` model sets `const UPDATED_AT = null`, disabling Laravel's automatic update timestamp. This is a deliberate design choice: audit records must remain unchanged after creation to be trustworthy as a security trail.
+
+### Admin Statistics Endpoint
+
+`GET /api/admin/statistics` aggregates user counts by role using Eloquent's `where('role', ...)->count()` and includes the five most recent audit log entries (with their performer's name via eager loading) for display on the admin dashboard. This powers live AJAX dashboard counters without needing a full page reload.
+
+---
+
+## Challenges Faced & Solutions
+
+**1. Session Security Without Breaking Usability**
+
+Implementing session fingerprinting (IP + User-Agent binding) risked locking out legitimate users whose IP changes mid-session (e.g., mobile users switching between Wi-Fi and mobile data). The solution was to use `SecureSession` only on protected web dashboards rather than public pages, and to provide a clear re-login prompt with a descriptive error message rather than a silent failure.
+
+**2. Dual Auth Patterns in a Single Application**
+
+Supporting both Sanctum token auth (for the API) and Laravel session auth (for web dashboards) in parallel required careful middleware separation. API routes use `auth:sanctum` while web routes use `auth` (session guard). The `VerifyCsrfToken` middleware correctly excludes `api/*` routes because those are already protected by Bearer tokens.
+
+**3. Password Sanitisation Conflict**
+
+Applying HTML entity encoding to all POST data would corrupt password inputs before bcrypt comparison. This was resolved by maintaining an explicit `$exemptFields` array in `SanitizeInput` that passes `password`, `password_confirmation`, `current_password`, and `_token` through untouched.
+
+**4. Consistent JSON Error Responses**
+
+Laravel's default validation failure redirects back with session errors, which is incompatible with a JSON API client. This was solved by overriding `failedValidation()` in each `FormRequest` to throw an `HttpResponseException` with a structured JSON payload, ensuring consistent `{ success, message, errors }` responses across all endpoints.
+
+**5. Audit Log Reliability**
+
+An audit log write failure (e.g., database timeout) must never crash the request that triggered it. The `AuditService` wraps all writes in a `try/catch` block and silently logs the error to Laravel's log channel, ensuring the primary business operation always completes successfully.
+
+---
+
+## Testing & Validation
+
+### Manual Testing
+
+All authentication flows were manually tested against the following scenarios:
+
+- Valid login with each seeded role (admin, doctor, patient) verifying correct dashboard redirect.
+- Invalid credentials returning a `401` JSON response with the appropriate message.
+- Duplicate email registration returning a `422` validation error.
+- Accessing an admin route while logged in as a patient resulting in a `403` redirect to the patient's own dashboard.
+- Submitting a form with an XSS payload (`<script>alert(1)</script>`) and verifying the output is entity-encoded in the stored value.
+- Manually expiring an idle session (30-minute threshold) and confirming the user is redirected to login.
+
+### Validation Layer Testing
+
+- `RegisterRequest` was tested with passwords that do not meet the `letters()`, `numbers()`, and `mixedCase()` requirements, each producing the correct `422` error.
+- Phone number validation regex was tested against valid Mauritian formats (`+230 5xxx xxxx`) and invalid strings.
+- `unique:users,email` constraint was tested by attempting to register an already-existing email.
+
+### Database Seeder
+
+Running `php artisan db:seed` creates three verifiable test accounts (admin, doctor, patient) with known credentials, providing a repeatable test baseline.
+
+### Configured Testing Framework
+
+PHPUnit 10 and Mockery are listed as dev dependencies in `composer.json`, and the `tests/` directory is registered under PSR-4 autoloading, providing the foundation for future automated test suites.
+
+---
+
+## How to Run the Project
 
 ### Prerequisites
 
-- PHP 8.1+
+- PHP 8.1 or higher
 - Composer
 - MySQL 8.0+
-- Node.js 18+ (for frontend assets)
-- Git
+- A local server environment (Laravel Sail, XAMPP, or native PHP)
 
-### Step-by-Step Installation
+### Setup Instructions
 
-**1. Clone the repository**
+**1. Extract and enter the project directory**
 ```bash
-git clone https://github.com/your-org/vitalcare.git
-cd vitalcare
-git checkout feature/auth-laravel   # My branch
+unzip vitalcare_zip.zip
+cd vitalcare-fixed
 ```
 
 **2. Install PHP dependencies**
@@ -253,182 +305,78 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Edit `.env` with your database credentials:
-```env
+**4. Update `.env` with your database credentials**
+```dotenv
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=vitalcare
-DB_USERNAME=root
-DB_PASSWORD=your_password
-
-SANCTUM_STATEFUL_DOMAINS=localhost,127.0.0.1
-SESSION_LIFETIME=30
+DB_DATABASE=vitalcare_db
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
 ```
 
-**4. Run database migrations and seed test data**
+**5. Create the database and run migrations**
 ```bash
+# Create the database in MySQL first, then:
 php artisan migrate
-php artisan db:seed          # Seeds staff, patients, and demo accounts
 ```
 
-**5. Install and build frontend assets (Bootstrap 5)**
+*Alternatively, import the full schema directly:*
 ```bash
-npm install
-npm run build
+mysql -u your_db_user -p vitalcare_db < vitalcare_db.sql
 ```
 
-**6. Publish Sanctum configuration**
+**6. Seed default users**
 ```bash
-php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan db:seed
 ```
+
+This creates the following accounts:
+
+| Role    | Email                      | Password       |
+|---------|----------------------------|----------------|
+| Admin   | admin@vitalcare.com        | Admin@1234     |
+| Doctor  | doctor@vitalcare.com       | Doctor@1234    |
+| Patient | patient@vitalcare.com      | Patient@1234   |
 
 **7. Start the development server**
 ```bash
 php artisan serve
-# Application available at: http://127.0.0.1:8000
 ```
 
-### Demo Credentials (Seeded)
+The application will be accessible at `http://127.0.0.1:8000`.
 
-| Role | Email | Password |
-|---|---|---|
-| Admin | admin@vitalcare.mu | password |
-| Doctor | doctor@vitalcare.mu | password |
-| Nurse | nurse@vitalcare.mu | password |
-| Receptionist | receptionist@vitalcare.mu | password |
-| Patient | patient@vitalcare.mu | password |
-| Pet Owner | petowner@vitalcare.mu | password |
+### Key URLs
 
-### Testing Auth API with cURL
-
-```bash
-# Login
-curl -X POST http://127.0.0.1:8000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -d '{"email":"admin@vitalcare.mu","password":"password"}'
-
-# Get profile (replace TOKEN with the token received above)
-curl -X GET http://127.0.0.1:8000/api/auth/me \
-  -H "Authorization: Bearer TOKEN" \
-  -H "Accept: application/json"
-
-# Logout
-curl -X POST http://127.0.0.1:8000/api/auth/logout \
-  -H "Authorization: Bearer TOKEN" \
-  -H "Accept: application/json"
-```
+| URL                           | Description                      |
+|-------------------------------|----------------------------------|
+| `GET /`                       | Public home page                 |
+| `GET /login`                  | Web login form                   |
+| `GET /register`               | Patient / pet owner registration |
+| `GET /admin/dashboard`        | Admin dashboard (role-protected) |
+| `GET /doctor/dashboard`       | Doctor dashboard                 |
+| `GET /patient/dashboard`      | Patient dashboard                |
+| `POST /api/auth/login`        | API login → returns Bearer token |
+| `GET /api/admin/statistics`   | AJAX dashboard statistics        |
+| `GET /api/health`             | Public health check              |
 
 ---
 
-## 6. Challenges & Solutions
+## Conclusion
 
-### Challenge 1: Single-Session Enforcement Without Locking Users Out
+This submission delivers a production-structured Laravel 10 web application that addresses all Week 20 requirements: a complete REST API consumed via AJAX, JSON responses with structured schemas enforced through Laravel's validation layer, full Laravel MVC architecture, and a Blade-rendered web interface.
 
-**Problem:** Laravel Sanctum issues multiple tokens per user by default, meaning a user could hold simultaneous sessions across devices — a security risk for a healthcare system.
+Beyond the functional requirements, the project places deliberate emphasis on the security objectives of ICT2213Y. Each of the four mandated threat mitigations — SQL Injection, Session Hijacking, XSS, and CSRF — is addressed through dedicated, documented, and testable code: custom middleware, FormRequest validation, Sanctum token scoping, and session fingerprinting.
 
-**Solution:** In `AuthController::login()`, all previous tokens are revoked with `$user->tokens()->delete()` before a new token is issued. This enforces a single active session per user while remaining transparent to the user experience.
+### Key Learning Outcomes
 
----
-
-### Challenge 2: Sanitising Input Without Breaking Password Hashing
-
-**Problem:** If `SanitizeInput` middleware processed the `password` field through `htmlspecialchars()`, characters like `>`, `<`, and `&` would be encoded as HTML entities before reaching the bcrypt hasher — causing login failures for passwords containing those characters.
-
-**Solution:** Introduced an `$exemptFields` array in `SanitizeInput` that explicitly skips `password`, `password_confirmation`, `current_password`, and `_token`. This ensures bcrypt always receives the raw password string.
-
----
-
-### Challenge 3: Session Fingerprinting and Middleware Ordering
-
-**Problem:** Binding the session to an IP/User-Agent fingerprint needs to happen after authentication is confirmed but before the controller runs. Middleware ordering in `Kernel.php` initially caused `SecureSession` to fire before `Auth` populated, resulting in `Auth::user()` returning `null`.
-
-**Solution:** Registered `SecureSession` as a route-level middleware (not global) applied only to authenticated route groups, ensuring it runs after Laravel's `auth` middleware has already resolved the user. The middleware guard with `Auth::check()` provides a secondary safeguard.
+- Practical experience implementing **dual authentication** (session + token) in a single Laravel application.
+- Deep understanding of **middleware pipelines** and their role in layered security.
+- Application of the **Service layer pattern** for cross-cutting concerns (audit logging) that must not interfere with the primary request flow.
+- Designing **role-scoped token abilities** with Laravel Sanctum to enforce least-privilege access at the API level.
+- Writing **FormRequest** classes that produce consistent, client-friendly JSON validation errors.
+- Building a **RESTful API** with appropriate HTTP status codes, consistent response envelopes, and rate limiting.
 
 ---
 
-### Challenge 4: Bootstrap 5 vs. Custom CSS Conflicts
-
-**Problem:** Migrating from custom CSS to Bootstrap 5 introduced specificity conflicts where existing custom classes overrode Bootstrap's utility classes unpredictably.
-
-**Solution:** Adopted a clean-break approach — removed conflicting custom CSS rules and rebuilt components using Bootstrap's component classes exclusively. Where custom styling was genuinely needed (brand colours, clinic-specific cards), scoped CSS custom properties were used alongside Bootstrap rather than against it.
-
----
-
-## 7. Testing & Validation
-
-### Manual API Testing
-
-All four auth endpoints were tested using both cURL and Postman across the following scenarios:
-
-| Scenario | Expected | Result |
-|---|---|---|
-| Valid credentials | 200 + token | ✅ Pass |
-| Invalid password | 401 + error message | ✅ Pass |
-| Unregistered email | 401 + error message | ✅ Pass |
-| Register with duplicate email | 422 + validation error | ✅ Pass |
-| Access protected route without token | 401 Unauthenticated | ✅ Pass |
-| Access admin route as patient | 403 Forbidden | ✅ Pass |
-| Login 6+ times in 1 minute | 429 Too Many Requests | ✅ Pass |
-| Logout + reuse old token | 401 Unauthenticated | ✅ Pass |
-
-### Middleware Edge Cases
-
-- **`RoleCheck`**: Verified that a doctor token cannot access `/api/admin/*` endpoints; tested all six role combinations.
-- **`SanitizeInput`**: Submitted XSS payloads (`<script>alert(1)</script>`, `"><img src=x onerror=alert(1)>`) and confirmed they were stripped before reaching controllers.
-- **`SecureSession`**: Simulated session hijacking by copying the session cookie and replaying it from a different `User-Agent` header — confirmed the session was invalidated and the user was logged out.
-
-### Form Request Validation
-
-`LoginRequest` and `RegisterRequest` were tested with missing fields, malformed emails, weak passwords, and invalid role values — all returning structured `422` JSON validation errors with field-level messages.
-
-### GitHub Commit Verification
-
-Individual contributions are verifiable on the `Shaikh_Ayman_2412575` branch. Commit history reflects incremental development of each deliverable with descriptive commit messages.
-
----
-
-## 8. Screenshots / Demo
-
-> **Note:** Screenshots are stored in `/docs/screenshots/` in the repository. The following captures should be included for the Week 20 presentation:
-
-| Screenshot | File |
-|---|---|
-| Successful login response in Postman (JSON token) | `docs/screenshots/auth-login-response.png` |
-| 403 Forbidden response (role mismatch) | `docs/screenshots/rbac-403-response.png` |
-| XSS payload stripped by SanitizeInput | `docs/screenshots/xss-sanitized-input.png` |
-| Session invalidation on fingerprint mismatch | `docs/screenshots/session-hijack-blocked.png` |
-| DevTools Network tab — login AJAX call | `docs/screenshots/network-tab-login.png` |
-| Bootstrap 5 master layout (responsive navbar) | `docs/screenshots/bootstrap-layout.png` |
-| GitHub branch commit history | `docs/screenshots/github-commits-ayman.png` |
-| Role-based dashboard redirect demo | `docs/screenshots/role-redirect-demo.png` |
-
-**To reproduce the live demo during the Week 20 presentation:**
-1. Open DevTools → Network tab
-2. Login as `doctor@vitalcare.mu` — show the JSON token response
-3. Attempt to `GET /api/admin/users` with the doctor token — show the 403 response
-4. Login as `admin@vitalcare.mu` — show access granted
-5. Demonstrate XSS input being sanitised in the Network tab request payload
-
----
-
-## 9. Conclusion
-
-My individual contribution to VitalCare Week 20 centred on three interconnected responsibilities: **security**, **architecture**, and **standards**.
-
-On the security side, I designed and implemented a layered defence strategy — Sanctum token authentication with role-scoped abilities, custom middleware for RBAC, XSS prevention, and session hijacking mitigation — ensuring that VitalCare handles sensitive patient and medical data responsibly.
-
-On the architecture side, setting up the Laravel scaffolding, route structure, and master layout gave the entire team a consistent, production-ready foundation to build on. The modular folder structure and documented naming conventions reduced integration friction significantly across all six branches.
-
-On the self-learning side, integrating Bootstrap 5 beyond the course syllabus demonstrates the ability to independently research and apply new technologies — a key evaluation criterion in the assignment brief.
-
-**Key learning outcomes from this project:**
-
-- Deepened practical understanding of **token-based authentication** and the security tradeoffs of stateless vs. stateful sessions
-- Gained hands-on experience with **Laravel Sanctum's token ability system** as a lightweight authorisation mechanism
-- Developed an appreciation for **defence-in-depth** — how multiple security layers (middleware, Eloquent parameterisation, Blade escaping, CSRF, rate limiting) work together rather than relying on any single mechanism
-- Strengthened skills in **technical documentation** through `NAMING_CONVENTIONS.md` and `MODULE_STRUCTURE.md`, which benefited the whole team
-
----
-
+*Developed as part of ICT2213Y(3) – Web Technologies and Security, University of Mauritius.*
