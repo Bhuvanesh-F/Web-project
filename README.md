@@ -68,6 +68,6 @@ php artisan serve
 ```json
 {
     "email": "admin@vitalcare.com",
-    "password": "Admin@1234"
+    "password": "password"
 }
 ```
