@@ -1,4 +1,4 @@
-# VitalCare Clinic | Ayman Muhammad Shaikh | Student ID: 2412575
+# VitalCare Clinic | Ayman Muhammad Shaikh 
 
 > **ICT2213Y(3) – Web Technologies and Security | Week 20 Submission**  
 > Faculty of Information and Digital Technologies, University of Mauritius
