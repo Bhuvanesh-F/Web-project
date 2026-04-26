@@ -1,7 +1,10 @@
-# VitalCare Clinic Management System
+# VitalCare — Ayman Muhammad Shaikh 
 
-> **ICT2213Y(3) – Web Technologies and Security | Week 20 Final Submission**
-> Faculty of Information and Digital Technologies, University of Mauritius
+> **ICT2213Y(3) – Web Technologies and Security**
+>
+> University of Mauritius · Faculty of Information and Digital Technologies
+>
+> Instructors: Mr. Anwar Chutoo & Mrs. Begum Durgahee
 
 ---
 
@@ -12,344 +15,337 @@
 | **Name** | Ayman Muhammad Shaikh |
 | **Student ID** | 2412575 |
 | **Course** | ICT2213Y(3) – Web Technologies and Security |
-| **Instructors** | Mr. Anwar Chutoo & Mrs. Begum Durgahee |
 | **Branch** | `Shaikh_Ayman_2412575` |
-| **Submission** | Week 20 |
 
 ---
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Assignment Context](#assignment-context)
-3. [Features Implemented](#features-implemented)
-4. [Security Mitigations](#security-mitigations)
-5. [Technologies Used](#technologies-used)
-6. [System Architecture](#system-architecture)
-7. [Implementation Details](#implementation-details)
-8. [Testing & Validation](#testing--validation)
-9. [How to Run the Project (Week 20 – Laravel)](#how-to-run-the-project-week-20--laravel)
-10. [Conclusion](#conclusion)
-11. [Week 10 Individual Contribution](#week-10-individual-contribution)
+**Part A — Week 20 Submission (Laravel) - Individual Contribution**
+1. [Project Overview](#1-project-overview)
+2. [Assignment Context](#2-assignment-context)
+3. [Features Implemented](#3-features-implemented)
+4. [Security Mitigations](#4-security-mitigations)
+5. [Technologies Used](#5-technologies-used)
+6. [System Architecture](#6-system-architecture)
+7. [Implementation Details](#7-implementation-details)
+8. [Challenges & Solutions](#8-challenges--solutions)
+9. [Testing & Validation](#9-testing--validation)
+10. [How to Run — Week 20 (Laravel)](#10-how-to-run--week-20-laravel)
+11. [Conclusion](#11-conclusion)
+
+**Part B — Week 10 Individual Contribution**
+
+12. [Week 10 — Project Overview](#12-week-10--project-overview)
+13. [My Contributions](#13-my-contributions)
+14. [Database Design](#14-database-design)
+15. [Coding Implementation](#15-coding-implementation)
+16. [PowerPoint Summary](#16-powerpoint-summary)
+17. [How to Run — Week 10 (XAMPP)](#17-how-to-run--week-10-xampp)
+18. [Reflection](#18-reflection)
 
 ---
 
-## Project Overview
+# PART A — Week 20 Submission (Laravel)
 
-**VitalCare** is a production-structured, full-stack clinic management web application designed to digitise and secure the daily operations of a dual-purpose healthcare facility — serving both human patients and pet owners. The system consolidates patient registration, appointment management, medical records, staff dashboards, and administrative oversight into a single role-aware platform.
+---
+
+## 1. Project Overview
+
+**VitalCare** is a production-structured, full-stack clinic management web application that digitises and secures the daily operations of a dual-purpose healthcare facility which serves both human patients and pet owners. The system consolidates patient registration, appointment management, medical records, staff dashboards, and administrative oversight into a single, role-aware platform.
 
 ### Objectives
 
 - Deliver a fully functional web application with both a **RESTful JSON API** (consumed via AJAX) and a **Blade-rendered web front end**.
 - Implement **role-based access control** across seven distinct user roles: `admin`, `doctor`, `vet`, `nurse`, `receptionist`, `patient`, and `pet_owner`.
-- Demonstrate real-world mitigation of the four core security threats outlined in the assignment brief: **SQL Injection**, **Session Hijacking**, **XSS**, and **CSRF**.
+- Demonstrate real-world mitigation of the four core security threats from the assignment brief: **SQL Injection**, **Session Hijacking**, **XSS**, and **CSRF**.
 - Apply the **Laravel MVC framework**, **Sanctum token authentication**, and professional software engineering principles (PSR-4 autoloading, FormRequest validation, Service layer, custom Middleware).
 
 ---
 
-## Assignment Context
+## 2. Assignment Context
 
-This submission satisfies the **Week 20 deliverables**: a live project demonstration incorporating AJAX, JSON, JSON Schema (via Laravel validation rules), and full Laravel integration — built upon the Week 10 baseline of HTML, PHP, jQuery, and database connectivity.
-
-Each requirement from the project brief is directly addressed:
+This submission satisfies all **Week 20 deliverables**: a live project demonstration with AJAX, JSON, JSON Schema (via Laravel validation), and full Laravel integration which is built upon the Week 10 baseline of HTML, PHP, jQuery, and database connectivity.
 
 | Brief Requirement | How It Is Met |
 |---|---|
-| Functional web application | Full Laravel 10 + Blade + REST API application |
-| Security mitigations (SQLi, XSS, CSRF, Session Hijacking) | Custom middleware stack: `SanitizeInput`, `SecureSession`, `VerifyCsrfToken`, Eloquent ORM |
-| AJAX / JSON / JSON Schema | AJAX-driven dashboards, consistent JSON envelope, Laravel FormRequest validation |
-| Laravel integration | Full MVC, Sanctum, Eloquent, Artisan migrations, seeders |
+| Functional web application | Full Laravel 10 + Blade + REST API |
+| Security mitigations (SQLi, XSS, CSRF, Session Hijacking) | Custom middleware: `SanitizeInput`, `SecureSession`, `VerifyCsrfToken`, Eloquent ORM |
+| AJAX / JSON / JSON Schema | AJAX dashboards, consistent JSON envelope, Laravel FormRequest validation |
+| Laravel integration | Full MVC, Sanctum, Eloquent, Artisan migrations & seeders |
 | Git contributions | All commits tracked on branch `Shaikh_Ayman_2412575` |
 
 ---
 
-## Features Implemented
+## 3. Features Implemented
 
-### Authentication & Session Management
+### 3.1 Authentication & Session Management
 
-- **Dual authentication layer**: Session-based login for web dashboards (Blade views) and token-based login for the REST API (Laravel Sanctum).
-- **Multi-step registration flow**: Patient and pet owner registration is split across three conceptual steps, collected client-side and submitted to a single validated endpoint.
-- **Role-based post-login redirect**: After authentication, users are automatically sent to the correct dashboard for their role (`/admin/dashboard`, `/doctor/dashboard`, `/patient/dashboard`, etc.).
-- **Single active session enforcement**: On API login, all previous tokens for the user are revoked before a new one is issued, preventing concurrent session abuse.
-- **Remember Me** support on web login.
-- **Secure logout**: Full session invalidation and CSRF token regeneration on both web and API logout paths.
+- **Dual authentication layer** — Session-based login for web dashboards (Blade) and token-based login for the REST API (Laravel Sanctum).
+- **Multi-step registration flow** — Patient and pet owner registration is collected client-side across three steps and submitted to a single validated endpoint.
+- **Role-based post-login redirect** — Users are automatically routed to the correct dashboard after login (`/admin/dashboard`, `/doctor/dashboard`, `/patient/dashboard`, etc.).
+- **Single active session enforcement** — On API login, all previous tokens are revoked before a new one is issued, preventing concurrent session abuse.
+- **Remember Me** — Supported on the web login form.
+- **Secure logout** — Full session invalidation and CSRF token regeneration on both web and API logout paths.
 
-### Role-Based Access Control (RBAC)
+### 3.2 Role-Based Access Control (RBAC)
 
 - Seven roles enforced at the route level via a custom `RoleCheck` middleware.
-- Role abilities are embedded directly into Sanctum tokens at issuance (e.g., `admin:*`, `doctor:*`, `patient:read`).
-- API routes are grouped by role with layered middleware: `auth:sanctum` + `role:<allowed_roles>`.
-- Web routes use `auth` + `role:<role>` + `secure.session` middleware stacks.
+- Role abilities are embedded into Sanctum tokens at issuance (e.g. `admin:*`, `doctor:*`, `patient:read`).
+- API routes use layered middleware: `auth:sanctum` + `role:<allowed_roles>`.
+- Web routes use `auth` + `role:<role>` + `secure.session` stacks.
 - Unauthorised users are redirected to their own dashboard rather than shown a generic error page.
-- The `User` model exposes `hasRole()`, `hasAnyRole()`, `isAdmin()`, and `isMedicalStaff()` helper methods for clean programmatic role checks.
+- The `User` model exposes `hasRole()`, `hasAnyRole()`, `isAdmin()`, and `isMedicalStaff()` helpers for clean programmatic role checks.
 
-### REST API (JSON / AJAX)
+### 3.3 REST API (JSON / AJAX)
 
-- Full CRUD REST API covering: **authentication**, **admin**, **doctors**, **patients**, **appointments**, **medical records**, **nurses**, **receptionists**, **pet owners**, **pets**, **reviews**, and a **contact** endpoint.
+- Full CRUD API covering: **authentication**, **admin**, **doctors**, **patients**, **appointments**, **medical records**, **nurses**, **receptionists**, **pet owners**, **pets**, **reviews**, and **contact**.
 - All responses follow a consistent JSON envelope: `{ success, message, data }`.
-- Public health-check endpoint (`GET /api/health`) returns system status and timestamp.
-- API routes are versioned under the `/api` prefix via `RouteServiceProvider`.
-- Rate limiting applied: `throttle:5,1` on login (5 req/min), `throttle:10,1` on registration, `throttle:60,1` on all other protected endpoints.
+- Public health-check endpoint: `GET /api/health` — returns system status and timestamp.
+- Rate limiting: `throttle:5,1` on login, `throttle:10,1` on registration, `throttle:60,1` on all other protected endpoints.
 
-### Admin Dashboard
+### 3.4 Admin Dashboard
 
-- `GET /api/admin/statistics` returns live system-wide counters (total patients, doctors, vets, nurses, receptionists, pet owners, and users) for AJAX-driven dashboard widgets.
-- `GET /api/admin/audit-logs` provides **paginated** audit log entries with metadata (`current_page`, `last_page`, `per_page`, `total`) for the admin panel table.
+- `GET /api/admin/statistics` — returns live system-wide counters (patients, doctors, vets, nurses, receptionists, pet owners) for AJAX dashboard widgets.
+- `GET /api/admin/audit-logs` — returns paginated audit log entries with full pagination metadata (`current_page`, `last_page`, `per_page`, `total`).
 - Full user CRUD operations via the admin API.
-- Admin web routes are protected by an additional `secure.session` middleware layer.
+- Admin web routes are additionally protected by the `secure.session` middleware.
 
-### Audit Logging
+### 3.5 Audit Logging
 
-- A dedicated `AuditService` (Service layer) and `AuditLog` model provide append-only audit trail records for all significant actions.
-- Each log entry captures: `action_type`, `performed_by` (user ID), `performed_by_role`, `affected_table`, `affected_record_id`, `description`, and `ip_address`.
-- The `AuditLog` model disables `UPDATED_AT` to enforce immutability — audit records cannot be modified after creation.
-- Audit log writes are wrapped in `try/catch` so that a logging failure never interrupts the main request flow.
+- A dedicated `AuditService` (Service layer) and `AuditLog` model provide an append-only audit trail for all significant actions.
+- Each log entry captures: `action_type`, `performed_by`, `performed_by_role`, `affected_table`, `affected_record_id`, `description`, and `ip_address`.
+- The `AuditLog` model sets `const UPDATED_AT = null` to enforce immutability — records cannot be modified after creation.
+- All writes are wrapped in `try/catch` so a logging failure never disrupts the main request.
 
-### Input Validation
+### 3.6 Input Validation
 
-- Dedicated `FormRequest` classes (`LoginRequest`, `RegisterRequest`) centralise validation logic away from controllers.
-- `RegisterRequest` enforces a **strong password policy** using `Password::min(8)->letters()->numbers()->mixedCase()`.
-- Phone number input is validated against the regex pattern `/^\+?[\d\s\-]{7,15}$/`.
-- Email uniqueness is enforced at both the validation layer and the database level (`UNIQUE` constraint).
-- All `FormRequest` classes override `failedValidation()` to return a structured JSON error response consistent with the API envelope format.
+- Dedicated `FormRequest` classes (`LoginRequest`, `RegisterRequest`) centralise validation away from controllers.
+- Strong password policy enforced via `Password::min(8)->letters()->numbers()->mixedCase()`.
+- Phone numbers validated against `/^\+?[\d\s\-]{7,15}$/`.
+- Email uniqueness enforced at both validation layer and database level (`UNIQUE` constraint).
+- All `FormRequest` classes override `failedValidation()` to return a consistent JSON error envelope.
 
-### Database
+### 3.7 Database
 
-- **MySQL** database (`vitalcare_db`) designed to 3NF with `utf8mb4` charset for full Unicode support.
-- Schema includes tables for: `users`, `human_patients`, appointments, medical records, pets, pet owners, audit logs, reviews, and password reset tokens.
-- Laravel migrations are provided for `users`, `audit_logs`, and `password_reset_tokens`, with `db:seed` support to bootstrap default admin, doctor, and patient accounts.
+- **MySQL** (`vitalcare_db`) designed to 3NF with `utf8mb4` charset for full Unicode support.
+- Schema covers: `users`, `human_patients`, appointments, medical records, pets, pet owners, audit logs, reviews, and password reset tokens.
+- Laravel migrations provided for `users`, `audit_logs`, and `password_reset_tokens`.
+- `db:seed` bootstraps default admin, doctor, and patient accounts.
 - The `users` table uses an `ENUM` role column with a database index on `role` for fast middleware lookups.
 
-### Contact & Reviews
+### 3.8 Contact & Reviews
 
-- A `ContactController` handles contact form submission via `POST /api/contact`.
-- A `ReviewController` allows authenticated patients and pet owners to submit reviews (pending admin moderation) and retrieves approved reviews for public display, joined with user name and role.
+- `POST /api/contact` — handles contact form submissions via `ContactController`.
+- `ReviewController` — allows authenticated patients and pet owners to submit reviews (pending admin moderation); retrieves approved reviews for public display, joined with user name and role.
 
 ---
 
-## Security Mitigations
+## 4. Security Mitigations
 
 All four threats mandated by the assignment brief are addressed through dedicated, testable, and documented code.
 
-### SQL Injection Prevention
+### 4.1 SQL Injection Prevention
 
-- All database interactions use **Laravel's Eloquent ORM** and the **Query Builder** with parameterised bindings. No raw SQL string concatenation is used anywhere in the codebase.
-- The `ReviewController` demonstrates the Query Builder approach (`DB::table()->join()->where()->select()->get()`), with all user-supplied values bound as parameters.
+All database interactions use **Laravel's Eloquent ORM** and the **Query Builder** with parameterised bindings. No raw SQL string concatenation exists anywhere in the codebase. The `ReviewController` demonstrates the Query Builder approach (`DB::table()->join()->where()->select()->get()`), with all user-supplied values bound as parameters.
 
-### XSS Prevention
+### 4.2 XSS Prevention
 
-- A custom `SanitizeInput` middleware is applied globally to all `POST`, `PUT`, and `PATCH` requests. It recursively strips HTML/PHP tags via `strip_tags()`, converts special characters to HTML entities via `htmlspecialchars(ENT_QUOTES | ENT_HTML5)`, and removes null bytes.
-- Password and token fields are explicitly exempted from sanitisation to prevent corruption of bcrypt hashes.
-- Blade's `{{ }}` syntax auto-escapes all output in views as an additional layer of defence.
+A custom `SanitizeInput` middleware is applied globally to all `POST`, `PUT`, and `PATCH` requests. It recursively strips HTML/PHP tags via `strip_tags()`, converts special characters via `htmlspecialchars(ENT_QUOTES | ENT_HTML5)`, and removes null bytes. Password and token fields are explicitly exempted to prevent corruption of bcrypt hashes. Blade's `{{ }}` syntax provides an additional auto-escape layer on all rendered output.
 
-### Session Hijacking Prevention
+### 4.3 Session Hijacking Prevention
 
-- A custom `SecureSession` middleware is applied to all authenticated web routes. It computes a **session fingerprint** as a SHA-256 hash of the user's IP address and User-Agent string.
-- On every authenticated request, the fingerprint is compared against the stored value. A mismatch triggers immediate logout, session invalidation, and a `401` response.
-- Session ID is **regenerated** on first bind and at every login to prevent session fixation attacks.
-- An **idle timeout** (30 minutes) automatically invalidates sessions for inactive users.
+A custom `SecureSession` middleware is applied to all authenticated web routes. It computes a **session fingerprint** as `hash('sha256', $ip . '|' . $userAgent)` on every request and compares it to the stored value. A mismatch — as would occur when a stolen session cookie is replayed from a different network or browser — triggers immediate logout and session invalidation. The session ID is **regenerated** on first bind and at every login to prevent session fixation. An **idle timeout** of 30 minutes automatically invalidates inactive sessions.
 
-### CSRF Prevention
+### 4.4 CSRF Prevention
 
-- Laravel's built-in `VerifyCsrfToken` middleware is active for all web routes.
-- API routes (`api/*`) are correctly excluded because they are protected by Sanctum Bearer tokens — this is explicitly documented in the middleware to prevent future accidental exemptions.
-- CSRF tokens are regenerated after every login and logout event.
+Laravel's built-in `VerifyCsrfToken` middleware is active for all web routes. API routes (`api/*`) are correctly excluded because they are protected by Sanctum Bearer tokens — this exclusion is explicitly documented in the middleware to prevent future accidental removal. CSRF tokens are regenerated after every login and logout.
 
 ---
 
-## Technologies Used
+## 5. Technologies Used
 
 | Category | Technology / Tool |
 |---|---|
 | **Backend** | PHP 8.1+, Laravel 10 |
 | **Authentication** | Laravel Sanctum (API tokens), Laravel Auth (web sessions) |
 | **Database** | MySQL 8, Laravel Eloquent ORM, Query Builder |
-| **Frontend** | Blade templating engine, HTML5, CSS3 |
-| **HTTP Client** | Guzzle 7 (`guzzlehttp/guzzle`) |
+| **Frontend** | Blade templating, HTML5, CSS3 |
+| **HTTP Client** | Guzzle 7 |
 | **API Standard** | RESTful JSON API |
-| **Security** | Custom Middleware (RBAC, XSS sanitisation, session fingerprinting), CSRF tokens, bcrypt hashing |
-| **Testing** | PHPUnit 10, Mockery (configured) |
-| **Dev Tools** | Laravel Pint (code style), Laravel Sail, Faker, Spatie Ignition |
+| **Security** | Custom Middleware (RBAC, XSS, session fingerprinting), CSRF tokens, bcrypt |
+| **Testing** | PHPUnit 10, Mockery |
+| **Dev Tools** | Laravel Pint, Laravel Sail, Faker, Spatie Ignition |
 | **Version Control** | Git / GitHub (`Shaikh_Ayman_2412575` branch) |
 
 ---
 
-## System Architecture
+## 6. System Architecture
 
-The project follows Laravel's **MVC (Model-View-Controller)** architecture with an additional **Service layer** for cross-cutting concerns such as audit logging.
+The project follows Laravel's **MVC** architecture with an additional **Service layer** for cross-cutting concerns.
 
 ```
 vitalcare-fixed/
 ├── app/
-│   ├── Console/                    # Artisan command kernel
-│   ├── Exceptions/                 # Global exception handler
 │   ├── Http/
 │   │   ├── Controllers/
-│   │   │   ├── Api/                # JSON API controllers (AuthController, AdminApiController, …)
-│   │   │   ├── Admin/              # Blade web controllers — Admin
-│   │   │   ├── Doctor/             # Blade web controllers — Doctor
-│   │   │   ├── Nurse/              # Blade web controllers — Nurse
-│   │   │   ├── Patient/            # Blade web controllers — Patient
-│   │   │   ├── PetOwner/           # Blade web controllers — Pet Owner
+│   │   │   ├── Api/                    # JSON API controllers
+│   │   │   ├── Admin/                  # Blade web controllers — Admin
+│   │   │   ├── Doctor/                 # Blade web controllers — Doctor
+│   │   │   ├── Nurse/                  # Blade web controllers — Nurse
+│   │   │   ├── Patient/                # Blade web controllers — Patient
+│   │   │   ├── PetOwner/               # Blade web controllers — Pet Owner
 │   │   │   ├── Receptionist/
-│   │   │   ├── PublicController.php      # Home, About, Contact pages
-│   │   │   └── WebAuthController.php     # Session login/logout/register
+│   │   │   ├── PublicController.php    # Home, About, Contact pages
+│   │   │   └── WebAuthController.php   # Session login/logout/register
 │   │   ├── Middleware/
-│   │   │   ├── RoleCheck.php             # RBAC enforcement
-│   │   │   ├── SecureSession.php         # Session hijacking prevention
-│   │   │   ├── SanitizeInput.php         # XSS input sanitisation
-│   │   │   └── VerifyCsrfToken.php       # CSRF protection
+│   │   │   ├── RoleCheck.php           # RBAC enforcement
+│   │   │   ├── SecureSession.php       # Session hijacking prevention
+│   │   │   ├── SanitizeInput.php       # XSS input sanitisation
+│   │   │   └── VerifyCsrfToken.php     # CSRF protection
 │   │   ├── Requests/
-│   │   │   ├── LoginRequest.php          # API login validation
-│   │   │   └── RegisterRequest.php       # API registration validation
-│   │   └── Kernel.php                    # Middleware registration
+│   │   │   ├── LoginRequest.php
+│   │   │   └── RegisterRequest.php
+│   │   └── Kernel.php
 │   ├── Models/
-│   │   ├── User.php                      # Central auth model (Sanctum + RBAC helpers)
-│   │   └── AuditLog.php                  # Immutable audit trail model
-│   ├── Providers/                        # Service providers (Auth, Route, Event)
+│   │   ├── User.php                    # Auth model (Sanctum + RBAC helpers)
+│   │   └── AuditLog.php                # Immutable audit trail model
 │   └── Services/
-│       └── AuditService.php              # Centralised audit logging service
-├── config/                               # App, auth, database, session, sanctum configs
+│       └── AuditService.php            # Centralised audit logging
 ├── database/
-│   ├── migrations/                       # Schema version control
-│   ├── seeders/                          # Default user seeding
-│   └── (vitalcare_db.sql)               # Full MySQL schema export
-├── resources/views/                      # Blade templates
+│   ├── migrations/
+│   ├── seeders/
+│   └── vitalcare_db.sql
+├── resources/views/                    # Blade templates
 ├── routes/
-│   ├── api.php                           # All /api/* routes
-│   └── web.php                           # All session-based web routes
-├── public/                               # Web root (index.php)
-└── composer.json                         # Dependency manifest
+│   ├── api.php                         # All /api/* routes
+│   └── web.php                         # All session-based web routes
+├── public/                             # Web root
+└── composer.json
 ```
 
 ### Request Lifecycle
 
-1. **HTTP Request** → hits `public/index.php` → Laravel bootstraps via `bootstrap/app.php`.
-2. **Middleware pipeline** executes in order: `SanitizeInput` (XSS) → `VerifyCsrfToken` (web only) → `Authenticate` → `RoleCheck` → `SecureSession` (web only).
-3. **Router** (`api.php` / `web.php`) dispatches to the appropriate **Controller**.
-4. **FormRequest** classes intercept and validate input before the controller method is invoked.
-5. **Controllers** interact with **Models** (Eloquent) or **Services** (AuditService) and return either a Blade `view()` or a `response()->json()`.
-6. **AuditService** writes append-only records to the `audit_logs` table; failures are caught and logged without disrupting the primary response.
+```
+HTTP Request
+    └── public/index.php
+        └── Middleware Pipeline
+            ├── SanitizeInput        (XSS — all requests)
+            ├── VerifyCsrfToken      (web routes only)
+            ├── Authenticate
+            ├── RoleCheck
+            └── SecureSession        (web routes only)
+                └── Controller → FormRequest validation
+                    └── Eloquent Model / AuditService
+                        └── JSON response or Blade view
+```
 
 ---
 
-## Implementation Details
+## 7. Implementation Details
 
-### Dual Authentication Architecture
+### 7.1 Dual Authentication Architecture
 
-The system implements two parallel authentication flows to satisfy both web and API consumers:
+| Flow | Guard | Mechanism |
+|---|---|---|
+| Web (Blade dashboards) | `auth` (session) | `Auth::attempt()` + `Session::regenerate()` + role redirect |
+| API (REST clients) | `auth:sanctum` | `Auth::attempt()` + `createToken()` + `Authorization: Bearer` header |
 
-- **Web (session-based)**: `WebAuthController` uses `Auth::attempt()`, `Session::regenerate()`, and role-based redirect. Protected routes carry the `secure.session` middleware which fingerprints each request.
-- **API (token-based)**: `AuthController` uses `Auth::attempt()` followed by `$user->createToken()` with role-scoped abilities. The `auth:sanctum` guard validates the `Authorization: Bearer <token>` header on subsequent requests.
+### 7.2 Role-Scoped Token Abilities
 
-### Role-Scoped Token Abilities
+Sanctum tokens carry role-specific abilities issued via `getRoleAbilities()`:
 
-When a Sanctum token is issued, it carries a set of abilities derived from the user's role via `getRoleAbilities()`. For example, an admin token carries `['admin:*', 'doctor:read', 'patient:read', 'appointment:*']`, while a patient token carries `['patient:read', 'appointment:read', 'record:read']`. This provides a second layer of authorisation beyond route-level role middleware.
+| Role | Token Abilities |
+|---|---|
+| Admin | `admin:*`, `doctor:read`, `patient:read`, `appointment:*` |
+| Doctor | `doctor:*`, `appointment:read`, `record:*` |
+| Patient | `patient:read`, `appointment:read`, `record:read` |
 
-### Session Fingerprinting
+### 7.3 Session Fingerprinting
 
-The `SecureSession` middleware computes `hash('sha256', $ip . '|' . $userAgent)` on each request and compares it to the stored fingerprint. This binds the session to a specific client context without storing any sensitive raw data. If the fingerprint changes — as it would when a stolen session cookie is replayed from a different network or browser — the session is immediately destroyed.
+```php
+hash('sha256', $request->ip() . '|' . $request->userAgent())
+```
 
-### SanitizeInput Middleware — Defence in Depth
+Computed on every authenticated web request and compared against the stored fingerprint. A mismatch triggers immediate session destruction and logout.
 
-While Eloquent's parameterised queries already prevent SQL injection and Blade's `{{ }}` escapes output, the `SanitizeInput` middleware adds a proactive layer by stripping tags and encoding entities on all inbound `POST`/`PUT`/`PATCH` data before it reaches the controller. Password fields are whitelisted to prevent bcrypt hash corruption.
+### 7.4 Paginated Audit Log API
 
-### Paginated Audit Log API
+`GET /api/admin/audit-logs` uses `AuditLog::paginate($perPage)` (max 100 per page) and returns both `data` and a `meta` pagination block, enabling an AJAX-driven admin table without full page reloads.
 
-The `GET /api/admin/audit-logs` endpoint uses `AuditLog::paginate($perPage)` with a maximum cap of 100 records per page. The JSON response includes both `data` (the log entries) and a `meta` block with pagination metadata, enabling the frontend to build a paginated admin table via AJAX without page reloads.
+### 7.5 Admin Statistics Endpoint
 
-### Immutable Audit Log Model
-
-The `AuditLog` model sets `const UPDATED_AT = null`, disabling Laravel's automatic update timestamp. This is a deliberate design choice: audit records must remain unchanged after creation to serve as a trustworthy security trail.
-
-### Admin Statistics Endpoint
-
-`GET /api/admin/statistics` aggregates user counts by role using `where('role', ...)->count()` and includes the five most recent audit log entries (with their performer's name via eager loading) for display on the admin dashboard. This powers live AJAX dashboard counters without requiring a full page reload.
-
----
-
-## Challenges Faced & Solutions
-
-**1. Session Security Without Breaking Usability**
-
-Implementing session fingerprinting (IP + User-Agent binding) risked locking out legitimate users whose IP changes mid-session (e.g., mobile users switching between Wi-Fi and mobile data). The solution was to apply `SecureSession` only to protected web dashboards rather than public pages, and to surface a descriptive re-login prompt rather than a silent failure.
-
-**2. Dual Auth Patterns in a Single Application**
-
-Supporting both Sanctum token auth (API) and Laravel session auth (web dashboards) in parallel required careful middleware separation. API routes use `auth:sanctum` while web routes use the `auth` session guard. The `VerifyCsrfToken` middleware correctly excludes `api/*` routes because those are already protected by Bearer tokens.
-
-**3. Password Sanitisation Conflict**
-
-Applying HTML entity encoding to all POST data would corrupt password inputs before bcrypt comparison. This was resolved by maintaining an explicit `$exemptFields` array in `SanitizeInput` that passes `password`, `password_confirmation`, `current_password`, and `_token` through untouched.
-
-**4. Consistent JSON Error Responses**
-
-Laravel's default validation failure redirects back with session errors, which is incompatible with a JSON API client. This was solved by overriding `failedValidation()` in each `FormRequest` to throw an `HttpResponseException` with a structured JSON payload, ensuring consistent `{ success, message, errors }` responses across all endpoints.
-
-**5. Audit Log Reliability**
-
-An audit log write failure (e.g., database timeout) must never crash the request that triggered it. The `AuditService` wraps all writes in a `try/catch` block and silently logs the error to Laravel's log channel, ensuring the primary business operation always completes successfully.
+`GET /api/admin/statistics` aggregates role-based user counts via Eloquent and eager-loads the five most recent audit entries with their performer's name — powering live AJAX dashboard counters.
 
 ---
 
-## Testing & Validation
+## 8. Challenges & Solutions
 
-### Manual Testing
+| Challenge | Solution |
+|---|---|
+| Session fingerprinting locking out mobile users on network switch | Applied `SecureSession` only to protected dashboards; surfaces a descriptive re-login prompt instead of a silent failure |
+| Running Sanctum token auth and Laravel session auth in the same app | Separated middleware guards: `auth:sanctum` on API routes, `auth` on web routes; `VerifyCsrfToken` correctly excludes `api/*` |
+| HTML entity encoding corrupting bcrypt password hashes | Maintained an `$exemptFields` whitelist in `SanitizeInput` for `password`, `password_confirmation`, `current_password`, and `_token` |
+| Laravel's default validation redirect incompatible with JSON API clients | Overrode `failedValidation()` in each `FormRequest` to throw an `HttpResponseException` with a `{ success, message, errors }` JSON payload |
+| Audit log write failure crashing the originating request | Wrapped all `AuditService` writes in `try/catch`; failures are silently sent to Laravel's log channel without affecting the primary response |
 
-All authentication flows were manually tested against the following scenarios:
+---
 
-- Valid login with each seeded role (admin, doctor, patient) verifying correct dashboard redirect.
-- Invalid credentials returning a `401` JSON response with the appropriate message.
-- Duplicate email registration returning a `422` validation error.
-- Accessing an admin route while logged in as a patient resulting in a `403` redirect to the patient's own dashboard.
-- Submitting a form with an XSS payload (`<script>alert(1)</script>`) and verifying the output is entity-encoded in the stored value.
-- Manually expiring an idle session (30-minute threshold) and confirming the user is redirected to login.
+## 9. Testing & Validation
+
+### Manual Testing — Authentication & RBAC
+
+| Scenario | Expected Result | Verified |
+|---|---|---|
+| Valid login per seeded role | Correct dashboard redirect | ✓ |
+| Invalid credentials | `401` JSON response | ✓ |
+| Duplicate email registration | `422` validation error | ✓ |
+| Patient accessing admin route | `403` redirect to patient dashboard | ✓ |
+| XSS payload in form input | Output is entity-encoded in stored value | ✓ |
+| Idle session after 30 minutes | Redirect to login | ✓ |
 
 ### Validation Layer Testing
 
-- `RegisterRequest` was tested with passwords that do not meet the `letters()`, `numbers()`, and `mixedCase()` requirements, each producing the correct `422` error.
-- Phone number validation regex was tested against valid Mauritian formats (`+230 5xxx xxxx`) and invalid strings.
-- `unique:users,email` constraint was tested by attempting to register an already-existing email address.
+- `RegisterRequest` tested with passwords failing `letters()`, `numbers()`, and `mixedCase()` — each returns a correct `422` error.
+- Phone number regex tested against valid Mauritian formats (`+230 5xxx xxxx`) and invalid strings.
+- `unique:users,email` tested by re-registering an existing email address.
 
 ### Database Seeder
 
-Running `php artisan db:seed` creates three verifiable test accounts (admin, doctor, patient) with known credentials, providing a repeatable and deterministic test baseline.
+`php artisan db:seed` creates three verifiable accounts (admin, doctor, patient) with known credentials for a repeatable test baseline.
 
-### Configured Testing Framework
+### Testing Framework
 
-PHPUnit 10 and Mockery are listed as dev dependencies in `composer.json`, and the `tests/` directory is registered under PSR-4 autoloading, providing a ready foundation for future automated test suites.
+PHPUnit 10 and Mockery are configured as dev dependencies in `composer.json`, with the `tests/` directory registered under PSR-4 autoloading, ready for future automated test suites.
 
 ---
 
-## How to Run the Project (Week 20 – Laravel)
+## 10. How to Run — Week 20 (Laravel)
 
 ### Prerequisites
 
-- PHP 8.1 or higher
+- PHP 8.1+
 - Composer
 - MySQL 8.0+
-- A local server environment (Laravel Sail, XAMPP with PHP 8.1, or native PHP)
+- Laravel Sail, XAMPP with PHP 8.1, or native PHP
 
-### Setup Instructions
+### Setup Steps
 
-**Step 1 — Extract and enter the project directory**
 ```bash
+# 1. Extract and enter the project
 unzip vitalcare_zip.zip
 cd vitalcare-fixed
-```
 
-**Step 2 — Install PHP dependencies**
-```bash
+# 2. Install dependencies
 composer install
-```
 
-**Step 3 — Configure environment**
-```bash
+# 3. Configure environment
 cp .env.example .env
 php artisan key:generate
 ```
 
-**Step 4 — Update `.env` with your database credentials**
+**4. Update `.env` with your database credentials:**
+
 ```dotenv
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -359,23 +355,23 @@ DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 ```
 
-**Step 5 — Create the database and run migrations**
 ```bash
-# Create the database in MySQL first, then:
+# 5. Run migrations
 php artisan migrate
-```
 
-*Alternatively, import the full schema directly:*
-```bash
+# Or import the full schema directly:
 mysql -u your_db_user -p vitalcare_db < vitalcare_db.sql
-```
 
-**Step 6 — Seed default users**
-```bash
+# 6. Seed default users
 php artisan db:seed
+
+# 7. Start the server
+php artisan serve
 ```
 
-This creates the following accounts:
+Application accessible at: `http://127.0.0.1:8000`
+
+### Seeded Accounts
 
 | Role | Email | Password |
 |---|---|---|
@@ -383,19 +379,12 @@ This creates the following accounts:
 | Doctor | doctor@vitalcare.com | Doctor@1234 |
 | Patient | patient@vitalcare.com | Patient@1234 |
 
-**Step 7 — Start the development server**
-```bash
-php artisan serve
-```
-
-The application will be accessible at `http://127.0.0.1:8000`.
-
 ### Key URLs
 
 | URL | Description |
 |---|---|
 | `GET /` | Public home page |
-| `GET /login` | Web login form |
+| `GET /login` | Web login |
 | `GET /register` | Patient / pet owner registration |
 | `GET /admin/dashboard` | Admin dashboard (role-protected) |
 | `GET /doctor/dashboard` | Doctor dashboard |
@@ -406,106 +395,81 @@ The application will be accessible at `http://127.0.0.1:8000`.
 
 ---
 
-## Conclusion
+## 11. Conclusion
 
-This submission delivers a production-structured Laravel 10 web application that addresses all Week 20 requirements: a complete REST API consumed via AJAX, JSON responses with structured schemas enforced through Laravel's validation layer, full Laravel MVC architecture, and a Blade-rendered web interface.
+This submission delivers a production-structured Laravel 10 application addressing all Week 20 requirements: a complete REST API consumed via AJAX, JSON responses with structured schemas enforced through Laravel's validation layer, full MVC architecture, and a Blade-rendered web interface.
 
-Beyond the functional requirements, the project places deliberate emphasis on the security objectives of ICT2213Y. Each of the four mandated threat mitigations — SQL Injection, Session Hijacking, XSS, and CSRF — is addressed through dedicated, documented, and testable code: custom middleware, FormRequest validation, Sanctum token scoping, and session fingerprinting.
+Each of the four mandated security mitigations — SQL Injection, Session Hijacking, XSS, and CSRF — is addressed through dedicated, documented, and testable code: custom middleware, FormRequest validation, Sanctum token scoping, and session fingerprinting.
 
 ### Key Learning Outcomes
 
-- Practical experience implementing **dual authentication** (session + token) in a single Laravel application.
-- Deep understanding of **middleware pipelines** and their role in layered security architecture.
-- Application of the **Service layer pattern** for cross-cutting concerns (audit logging) that must not interfere with the primary request flow.
-- Designing **role-scoped token abilities** with Laravel Sanctum to enforce least-privilege access at the API level.
+- Implementing **dual authentication** (session + token) in a single Laravel application.
+- Understanding **middleware pipelines** and their role in layered security.
+- Applying the **Service layer pattern** for audit logging that never interferes with the primary request.
+- Designing **role-scoped token abilities** with Sanctum for least-privilege API access.
 - Writing **FormRequest** classes that produce consistent, client-friendly JSON validation errors.
-- Building a **RESTful API** with appropriate HTTP status codes, consistent response envelopes, and rate limiting.
-
----
-
-*Developed as part of ICT2213Y(3) – Web Technologies and Security, University of Mauritius.*
+- Building a **RESTful API** with correct HTTP status codes, consistent response envelopes, and rate limiting.
 
 ---
 
 ---
 
-# Week 10 Individual Contribution
-
-**ICT2213Y(3) – Web Technologies and Security**
-
-| Field | Details |
-|---|---|
-| **Student** | Ayman Muhammad Shaikh |
-| **Module** | ICT2213Y(3) – Web Technologies and Security |
-| **Institution** | University of Mauritius, Faculty of Information and Digital Technologies |
-| **Instructors** | Mr. Anwar Chutoo & Mrs. Begum Durgahee |
+# PART B — Week 10 Individual Contribution
 
 ---
 
-## Table of Contents
+## 12. Week 10 — Project Overview
 
-1. [Project Overview](#1-project-overview)
-2. [My Contributions](#2-my-contributions)
-3. [Database Design](#3-database-design)
-4. [Implementation (Coding)](#4-implementation-coding)
-5. [PowerPoint Summary](#5-powerpoint-summary)
-6. [How to Run the Project](#6-how-to-run-the-project)
-7. [Reflection](#7-reflection)
+**VitalCare** is a full-stack web application developed as the group project for ICT2213Y(3). It simulates a healthcare management system supporting both **human patient care** and **pet care** under one platform. Patients and pet owners can register, log in, book appointments, and view medical records; administrators can manage staff, approve appointments, and monitor system activity.
 
----
-
-## 1. Project Overview
-
-**VitalCare** is a full-stack web application developed as the group project for ICT2213Y(3). It simulates a healthcare management system that supports both **human patient care** and **pet care** services under a single platform. The system allows patients and pet owners to register, log in, book appointments, and view medical records, while administrators can manage staff, approve appointments, and monitor system activity.
-
-The Week 10 milestone required the team to demonstrate:
+The **Week 10 milestone** required the team to demonstrate:
 
 - A working HTML/PHP/jQuery front end connected to a live MySQL database
 - Core features: registration, login, appointment booking, and medical records
 - Evidence of security practices: SQL injection prevention, session management, XSS protection, and CSRF mitigation
-- A PowerPoint presentation covering the system overview, functional specifications, and individual contributions
+- A PowerPoint covering system overview, functional specs, and individual contributions
 
 ---
 
-## 2. My Contributions
+## 13. My Contributions
 
-### 2.1 — Initially Assigned Work
+### 13.1 Assigned Role: Database Developer
 
-As the **Database Developer** for the team (as defined in the Week 10 task distribution document), my formally assigned responsibilities were:
+As the **Database Developer** for the team (per the Week 10 task distribution document), my formally assigned responsibilities were:
 
 - Design and implement the full MySQL relational database schema
 - Define all tables, data types, constraints, and foreign key relationships
 - Export the complete `database.sql` file
 - Produce an ERD diagram
-- Insert sample/seed data for demonstration purposes
-- Contribute to the group PowerPoint presentation (all slides except slides 14–15)
+- Insert sample/seed data for demonstration
+- Contribute to the group PowerPoint (all slides except 14–15)
 
-> **Note:** Slides 14 and 15 of the Week 10 PowerPoint were completed by teammate Sehun as part of his documentation lead role.
+> Slides 14 and 15 were completed by teammate Sehun as part of his documentation lead role.
 
-### 2.2 — Additional Work (Beyond Assigned Tasks)
+### 13.2 Additional Work (Beyond Assigned Tasks)
 
-After fulfilling my assigned responsibilities, I independently undertook and completed the **full coding implementation** of the VitalCare Week 10 application. This work was not part of my original role but was completed to ensure the team had a functional, demonstrable system. It covers:
+After completing my assigned responsibilities, I independently undertook the **full coding implementation** of the VitalCare Week 10 application to ensure the team had a functional and demonstrable system. This included:
 
 - All PHP backend logic (authentication, CRUD, AJAX endpoints, session handling)
 - All frontend pages (HTML, CSS, JavaScript)
 - Security implementation across the entire codebase
-- A complete, modular project structure with shared includes and a role-based access architecture
+- A complete, modular project structure with shared includes and role-based access guards
 
 The full implementation is provided in `vitalcare_week10.zip`.
 
 ---
 
-## 3. Database Design
+## 14. Database Design
 
-### 3.1 Schema Overview
+### 14.1 Schema Overview
 
-The database (`vitalcare_db`) was designed from scratch to support a dual-service healthcare platform. It is structured around two parallel domains — **human healthcare** and **pet care** — each with its own dedicated set of tables.
+The database (`vitalcare_db`) was designed from scratch for a dual-service healthcare platform and structured around two parallel domains.
 
 **Human Healthcare Tables:**
 
 | Table | Purpose |
 |---|---|
-| `human_patients` | Stores patient registration data including hashed passwords |
+| `human_patients` | Patient registration data including hashed passwords |
 | `human_doctors` | Doctor profiles with speciality, fees, and experience |
 | `human_nurses` | Nurse profiles |
 | `human_admins` | Admin accounts for system management |
@@ -530,40 +494,31 @@ The database (`vitalcare_db`) was designed from scratch to support a dual-servic
 
 | Table | Purpose |
 |---|---|
-| `contact_messages` | Stores visitor enquiries submitted via the contact form |
+| `contact_messages` | Visitor enquiries from the contact form |
 | `nurse_checklist` | Task management for nurses across both domains |
-| `audit_logs` | Logs actions by role, actor ID, IP address, and timestamp |
+| `audit_logs` | Actions logged by role, actor ID, IP address, and timestamp |
 
-### 3.2 Key Design Decisions
+### 14.2 Key Design Decisions
 
-- **UUID primary keys (`CHAR(36)`):** All primary keys use UUID v4 format rather than auto-increment integers. This prevents sequential ID enumeration attacks, which is especially critical for a healthcare system handling sensitive personal data.
+- **UUID primary keys (`CHAR(36)`)** — Prevents sequential ID enumeration attacks, critical for a healthcare system with sensitive personal data.
+- **Referential integrity via foreign keys** — `ON DELETE CASCADE` where child records should be removed with the parent; `ON DELETE SET NULL` where historical records must be preserved (e.g. medical records after a doctor is removed).
+- **Separate human and pet domains** — Independent table sets for each domain avoid complex polymorphic joins and keep the schema maintainable.
+- **Audit logging** — Records who performed what action, on which object, and from which IP — supporting accountability and post-incident investigation.
+- **Schema-level validation** — `CHECK` constraints, `ENUM` types for status/gender fields, and `UNIQUE` on email columns enforce data integrity at the database layer.
+- **Password storage** — The `password_hash` column stores bcrypt output from PHP's `password_hash()`. Plain-text passwords are never stored.
 
-- **Referential integrity via foreign keys:** All relationships between entities are enforced at the database level. `ON DELETE CASCADE` is used where child records should be removed with the parent (e.g., a patient's appointments), and `ON DELETE SET NULL` is used where historical records should be preserved even if the linked entity is deleted (e.g., medical records retaining a doctor reference after the doctor is removed).
-
-- **Separation of human and pet domains:** Rather than a single generic schema, the human and pet sides each have their own independent table sets. This avoids complex polymorphic joins and keeps the schema readable and maintainable.
-
-- **Audit logging:** The `audit_logs` table records who performed what action, on which object, and from which IP address. This is a critical security feature that supports accountability and post-incident investigation.
-
-- **Data validation at schema level:** Constraints such as `CHECK (experience >= 0)`, `CHECK (rating BETWEEN 1 AND 5)`, `ENUM` types for status and gender fields, and `UNIQUE` on email columns enforce data integrity at the database layer, complementing application-level validation.
-
-- **Password storage:** The `password_hash` column uses `TEXT` type, designed to store bcrypt hashes produced by PHP's `password_hash()` function. Plain-text passwords are never stored.
-
-### 3.3 Entity Relationships (Summary)
+### 14.3 Entity Relationships
 
 - A `human_patient` can have many `human_appointments`, `human_medical_records`, and `human_reviews`
 - A `human_doctor` can be linked to many appointments, records, and reviews
 - A `pet_owner` can own many `pets`; each `pet` can have many `pet_appointments` and `pet_medical_records`
-- A `nurse_checklist` entry links to either a patient or a pet, with a role discriminator field
+- A `nurse_checklist` entry links to either a patient or a pet via a role discriminator field
 
 ---
 
-## 4. Implementation (Coding)
+## 15. Coding Implementation
 
-### 4.1 System Overview
-
-The coding implementation is a fully functional PHP/MySQL web application running on XAMPP. It follows an **MVC-inspired modular structure**, separating concerns into reusable includes, API endpoints, role-specific subdirectories, and a shared stylesheet.
-
-### 4.2 Directory Structure
+### 15.1 Directory Structure
 
 ```
 vitalcare/
@@ -571,8 +526,8 @@ vitalcare/
 ├── login.php                   ← Patient login
 ├── register.php                ← Patient registration
 ├── logout.php / admin-logout.php
-├── book-appointment.php        ← Appointment booking (AJAX-driven)
-├── services.php                ← Services listing page
+├── book-appointment.php        ← AJAX-driven appointment booking
+├── services.php                ← Services listing
 ├── contact.php                 ← Contact form (saves to DB)
 │
 ├── includes/
@@ -582,66 +537,64 @@ vitalcare/
 │   └── footer.php              ← Shared page footer
 │
 ├── css/
-│   └── style.css               ← External stylesheet
+│   └── style.css
 │
 ├── js/
-│   └── main.js                 ← Client-side validation & AJAX calls
+│   └── main.js                 ← Client-side validation & AJAX
 │
 ├── api/
 │   ├── book-appointment.php    ← AJAX endpoint: save appointment
 │   └── get-doctors.php         ← AJAX endpoint: fetch doctors by speciality
 │
 ├── patient/
-│   ├── dashboard.php           ← Patient dashboard with live DB data
-│   ├── appointments.php        ← View and cancel appointments
-│   ├── medical-records.php     ← View medical history
-│   └── profile.php             ← Edit profile information
+│   ├── dashboard.php
+│   ├── appointments.php
+│   ├── medical-records.php
+│   └── profile.php
 │
 ├── admin/
-│   ├── dashboard.php           ← Admin dashboard with live statistics
-│   ├── appointments.php        ← Manage and approve all appointments
-│   ├── staff.php               ← View and remove doctors and nurses
-│   ├── add-doctor.php          ← Add a doctor (saves to DB)
-│   └── add-nurse.php           ← Add a nurse (saves to DB)
+│   ├── dashboard.php
+│   ├── appointments.php
+│   ├── staff.php
+│   ├── add-doctor.php
+│   └── add-nurse.php
 │
 └── vitalcare_db.sql            ← Full schema + seed data
 ```
 
-### 4.3 Key Features Implemented
+### 15.2 Features Implemented
 
 **Patient Features:**
 - Self-registration with server-side validation and bcrypt password hashing
 - Secure login with session regeneration on authentication
-- Dashboard displaying appointment history and medical records from the database
-- AJAX-powered appointment booking — speciality selection dynamically populates available doctors without page reload
+- Dashboard showing appointment history and medical records from the live database
+- AJAX-powered appointment booking — speciality selection dynamically populates available doctors without a page reload
 - Appointment cancellation with real-time status update in the database
 - Profile editing
 
 **Admin Features:**
 - Separate admin login portal with role-based session enforcement
-- Dashboard displaying live statistics (patient count, doctor count, pending appointments)
-- Full appointment management: view all appointments, approve or update status
-- Staff management: add doctors and nurses, view all staff, remove staff members
+- Dashboard with live statistics (patient count, doctor count, pending appointments)
+- Full appointment management — view, approve, and update appointment status
+- Staff management — add doctors and nurses, view all staff, remove staff members
 
 **General Features:**
-- Contact form saving messages to the `contact_messages` table
+- Contact form saving submissions to `contact_messages`
 - Services listing page
-- Reusable header and footer components included across all pages
+- Reusable header and footer components across all pages
 
-### 4.4 Security Implementation
+### 15.3 Security Implementation
 
-Security was treated as a first-class concern throughout the implementation, directly addressing all threats identified in the project brief:
-
-| Threat | Mitigation Implemented |
+| Threat | Mitigation |
 |---|---|
-| **SQL Injection** | All database queries use prepared statements with `$stmt->bind_param()` — no raw user input is concatenated into SQL strings |
-| **XSS (Cross-Site Scripting)** | All output rendered in HTML passes through `htmlspecialchars()` via the `h()` helper function in `db.php` |
-| **CSRF (Cross-Site Request Forgery)** | Every POST form includes a hidden `csrf_token` field; the server validates it using `hash_equals()` before processing the request |
-| **Session Hijacking** | `session_regenerate_id(true)` is called on login; sessions use `cookie_httponly` and `cookie_samesite: Strict` flags |
-| **Password Security** | Passwords are hashed using PHP's `password_hash()` (bcrypt) and verified with `password_verify()` |
-| **Role-Based Access Control** | `requirePatient()` and `requireAdmin()` guard functions in `auth.php` enforce that protected pages are only accessible to the correct authenticated role |
+| **SQL Injection** | All queries use prepared statements with `$stmt->bind_param()` — no raw user input is concatenated into SQL strings |
+| **XSS** | All HTML output passes through `htmlspecialchars()` via the `h()` helper in `db.php` |
+| **CSRF** | Every POST form includes a hidden `csrf_token`; server validates it with `hash_equals()` before processing |
+| **Session Hijacking** | `session_regenerate_id(true)` called on login; sessions use `cookie_httponly` and `cookie_samesite: Strict` |
+| **Password Security** | Passwords hashed with `password_hash()` (bcrypt) and verified with `password_verify()` |
+| **RBAC** | `requirePatient()` and `requireAdmin()` guard functions in `auth.php` enforce role access before any page logic runs |
 
-### 4.5 Technologies Used
+### 15.4 Technologies Used
 
 | Layer | Technology |
 |---|---|
@@ -652,76 +605,71 @@ Security was treated as a first-class concern throughout the implementation, dir
 | Security | Prepared statements, bcrypt, CSRF tokens, XSS escaping, session hardening |
 | Architecture | Modular includes (MVC-inspired) |
 
-### 4.6 Challenges and Solutions
+### 15.5 Challenges & Solutions
 
-**Challenge: AJAX appointment booking with dynamic doctor population**
+**AJAX appointment booking with dynamic doctor population**
 
-The appointment booking form required the doctor dropdown to update automatically based on the selected speciality, without a full page reload. This was solved by creating a dedicated API endpoint (`api/get-doctors.php`) that accepts a speciality parameter via a `fetch()` call and returns a JSON array of matching doctors. The JavaScript in `main.js` then dynamically rebuilds the dropdown from the response.
+The doctor dropdown needed to update automatically based on the selected speciality without a full page reload. A dedicated API endpoint (`api/get-doctors.php`) accepts a speciality parameter via `fetch()` and returns a JSON array of matching doctors. `main.js` then rebuilds the dropdown dynamically from the response.
 
-**Challenge: Consistent CSRF protection across all forms**
+**Consistent CSRF protection across all forms**
 
-Implementing CSRF protection consistently across every POST form required a centralised approach. By placing the `csrfToken()` and `verifyCsrf()` functions in `includes/auth.php` and including this file on every page, CSRF tokens were generated and validated uniformly without duplicating logic.
+Rather than duplicating CSRF logic on every page, the `csrfToken()` and `verifyCsrf()` functions were centralised in `includes/auth.php` and included on every page — generating and validating tokens uniformly throughout the application.
 
-**Challenge: Maintaining role separation**
+**Maintaining role separation across a dual-domain system**
 
-The dual-domain nature of the system (human and pet) alongside multiple staff roles required careful session and access control design. The `requirePatient()` and `requireAdmin()` functions in `auth.php` provide lightweight but effective guards that redirect unauthorised users before any sensitive page logic runs.
-
----
-
-## 5. PowerPoint Summary
-
-The Week 10 group presentation was prepared by me with the exception of slides 14 and 15, which were contributed by my team member Sehun.
-
-**Key sections covered in the presentation:**
-
-- **Project Introduction:** Overview of the VitalCare concept, the business problem it solves, and the target user base (patients, pet owners, and healthcare staff)
-- **System Architecture:** High-level overview of the three-tier structure (frontend, backend, database) and how the components interact
-- **Functional Requirements:** Summary of the core use cases — registration, login, appointment booking, medical records management, and admin controls
-- **Database Design:** Walkthrough of the ERD, table structure, and the reasoning behind key design decisions (UUID keys, foreign key constraints, audit logging)
-- **Security Features:** Explanation of the security techniques implemented, directly mapped to the threats identified in the project brief (SQL injection, XSS, CSRF, session hijacking)
-- **Individual Contribution:** Clear breakdown of each team member's assigned tasks and deliverables
-- **Live Demonstration Outline:** Checklist of features to be demonstrated live during the presentation
-
-> Slides 14–15 (covering use case descriptions and functional specifications documentation) were prepared by Sehun.
+The `requirePatient()` and `requireAdmin()` guard functions in `auth.php` redirect unauthorised users before any sensitive page logic runs, providing lightweight but effective access control across both the human and pet domains.
 
 ---
 
-## 6. How to Run the Project
+## 16. PowerPoint Summary
 
-The application runs on a local XAMPP stack. Follow the steps below to set it up.
+The Week 10 group presentation was prepared entirely by me, with the exception of slides 14 and 15 (contributed by teammate Sehun).
+
+| Slides | Content |
+|---|---|
+| Project Introduction | VitalCare concept, business problem, and target users |
+| System Architecture | Three-tier structure and component interaction |
+| Functional Requirements | Registration, login, appointment booking, medical records, admin controls |
+| Database Design | ERD walkthrough, table structure, and key design decisions |
+| Security Features | Techniques mapped directly to the project brief threats |
+| Individual Contributions | Breakdown of each team member's assigned tasks |
+| Demonstration Outline | Checklist of features shown live during the presentation |
+
+> Slides 14–15 (use case descriptions and functional specifications) — prepared by Sehun.
+
+---
+
+## 17. How to Run — Week 10 (XAMPP)
 
 ### Prerequisites
 
-- [XAMPP](https://www.apachefriends.org/) installed (PHP 8.x, Apache, MySQL/MariaDB)
+- [XAMPP](https://www.apachefriends.org/) with PHP 8.x, Apache, and MySQL/MariaDB
 
 ### Step 1 — Start XAMPP
 
-1. Open the XAMPP Control Panel
-2. Start **Apache** and **MySQL**
+Open the XAMPP Control Panel and start both **Apache** and **MySQL**.
 
 ### Step 2 — Copy Project Files
 
-1. Extract `vitalcare_week10.zip`
-2. Copy the `vitalcare/` folder into:
-   ```
-   C:\xampp\htdocs\vitalcare\
-   ```
+Extract `vitalcare_week10.zip` and copy the `vitalcare/` folder to:
+```
+C:\xampp\htdocs\vitalcare\
+```
 
 ### Step 3 — Import the Database
 
-1. Open your browser and navigate to `http://localhost/phpmyadmin`
-2. Click **New** in the left sidebar and create a database named `vitalcare_db`
-3. Select the new database, click **Import** at the top
-4. Choose the file `vitalcare/vitalcare_db.sql` and click **Go**
+1. Navigate to `http://localhost/phpmyadmin`
+2. Click **New** and create a database named `vitalcare_db`
+3. Select it, click **Import**, choose `vitalcare/vitalcare_db.sql`, and click **Go**
 
 ### Step 4 — Verify Database Configuration
 
-Open `includes/db.php` and confirm the credentials match your XAMPP setup:
+Open `includes/db.php` and confirm:
 
 ```php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');    // default XAMPP username
-define('DB_PASS', '');        // default XAMPP has no password
+define('DB_PASS', '');        // default XAMPP — no password
 define('DB_NAME', 'vitalcare_db');
 ```
 
@@ -729,63 +677,49 @@ Update `DB_PASS` if you have set a MySQL root password.
 
 ### Step 5 — Launch the Application
 
-Open your browser and go to:
-```
-http://localhost/vitalcare/
-```
+Open your browser and go to: `http://localhost/vitalcare/`
 
 ### Default Login Credentials
 
-**Admin:**
-- URL: `http://localhost/vitalcare/admin-login.php`
-- Email: `admin`
-- Password: `password`
+| Account | URL | Credentials |
+|---|---|---|
+| Admin | `/vitalcare/admin-login.php` | Email: `admin` / Password: `password` |
+| Patient | `/vitalcare/register.php` | Register a new account |
 
-**Patient:**
-- Register a new account at `http://localhost/vitalcare/register.php`
-
-**Sample Doctors (seeded in database):**
-- Dr. Alice Martin – General Medicine
-- Dr. Robert Chen – Cardiology
-- Dr. Priya Sharma – Dermatology
-- Dr. James Okonkwo – Pediatrics
+**Sample Doctors (seeded):**
+Dr. Alice Martin (General Medicine), Dr. Robert Chen (Cardiology), Dr. Priya Sharma (Dermatology), Dr. James Okonkwo (Pediatrics)
 
 ### Troubleshooting
 
 | Problem | Solution |
 |---|---|
-| Blank page | Add `ini_set('display_errors', 1);` to the top of `db.php` to reveal PHP errors |
+| Blank page | Add `ini_set('display_errors', 1);` to the top of `db.php` |
 | Database connection failed | Verify `DB_USER` and `DB_PASS` in `includes/db.php` |
-| 404 errors | Confirm the folder is located at `C:\xampp\htdocs\vitalcare\` |
-| CSRF validation error | Clear browser cookies and try again |
+| 404 errors | Confirm the folder is at `C:\xampp\htdocs\vitalcare\` |
+| CSRF validation error | Clear browser cookies and retry |
 | Appointment not saving | Ensure you are logged in as a patient before booking |
 
 ---
 
-## 7. Reflection
+## 18. Reflection
 
 ### What I Learned
 
-Working on VitalCare across both the database design and the full coding implementation gave me a significantly broader understanding of how all layers of a web application connect and depend on each other.
+Working on VitalCare across both database design and the full coding implementation gave me a significantly broader understanding of how all layers of a web application connect and depend on each other.
 
-On the **database side**, designing a schema for a multi-role, dual-domain system forced me to think carefully about data integrity, referential constraints, and the security implications of schema design choices — such as using UUID keys to prevent sequential ID enumeration and choosing between `ON DELETE CASCADE` and `ON DELETE SET NULL` deliberately rather than arbitrarily.
+On the **database side**, designing a schema for a multi-role, dual-domain system required careful thought about data integrity, referential constraints, and the security implications of schema decisions, such as using UUID keys to prevent sequential ID enumeration, and choosing `ON DELETE CASCADE` vs `ON DELETE SET NULL` deliberately rather than arbitrarily.
 
-On the **security side**, implementing CSRF protection, prepared statements, and XSS escaping not as isolated exercises but as features woven into a real application helped me understand why these techniques matter in practice, not just in theory.
+On the **security side**, implementing CSRF protection, prepared statements, and XSS escaping as features woven into a real application rather than isolated exercises. Therefore, this made it clear why these techniques matter in practice. Tracing how a SQL injection attempt would fail against a prepared statement, because user input is bound as a parameter rather than spliced into the query string, gave me a concrete mental model of why parameterised queries are the correct approach.
 
 ### Skills Developed
 
-- Designing normalised relational database schemas for complex, multi-entity systems
-- Writing secure PHP applications using prepared statements, session hardening, and CSRF tokens
-- Building AJAX-driven interactions using the Fetch API and JSON endpoints
+- Designing normalised relational schemas for complex, multi-entity systems
+- Writing secure PHP using prepared statements, session hardening, and CSRF tokens
+- Building AJAX-driven interactions with the Fetch API and JSON endpoints
 - Structuring a PHP project modularly with shared includes and role-based access guards
 - Understanding how application logic, session state, and database queries interact at runtime
 
 ### How This Task Improved My Understanding
 
-Before this project, my understanding of web security was largely theoretical. Implementing CSRF tokens on every form, writing the `verifyCsrf()` and `csrfToken()` functions, and observing how a missing token causes a 403 response made the protection mechanism concrete and intuitive. Similarly, tracing how a SQL injection attempt would fail against a prepared statement — because the user input is bound as a parameter rather than spliced into the query string — gave me a much clearer mental model of why parameterised queries are the correct approach.
+Going beyond my assigned role and completing the full implementation reinforced the value of end-to-end ownership: understanding the database schema made it significantly easier to write correct, efficient PHP queries, and thinking about security at the schema level (UUID keys, audit logs) made the application-level security measures feel like a natural continuation rather than an afterthought.
 
-Going beyond my assigned role and completing the full implementation also reinforced the importance of having end-to-end ownership of a feature: understanding the database schema made it significantly easier to write correct, efficient PHP queries, and thinking about security at the schema level (UUID keys, audit logs) made the application-level security measures feel like a natural continuation rather than an afterthought.
-
----
-
-*ICT2213Y(3) – Web Technologies and Security , University of Mauritius.*
