@@ -1,5 +1,3 @@
-// Enhanced validation and security for VitalCare Portal (Week 20 - Laravel Ready)
-
 const API_BASE = "/api";
 
 // ========================
